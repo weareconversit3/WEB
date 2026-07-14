@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cendra — Fuego y Mar, Barcelona</title>
+<meta name="description" content="Cendra es un restaurante de alta cocina en el Barrio Gótico de Barcelona, construido en torno al fuego vivo y el producto mediterráneo.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --ink:        #12181a;
+    --ink-soft:   #1b2427;
+    --teal:       #1f4e49;
+    --teal-deep:  #0e2a27;
+    --brass:      #b8925a;
+    --brass-soft: #d8b98a;
+    --paper:      #f3eee3;
+    --paper-dim:  #e9e2d3;
+    --ash:        #6f6a62;
+    --line:       rgba(20,24,25,0.12);
+    --line-on-dark: rgba(243,238,227,0.16);
+
+    --display: 'Fraunces', serif;
+    --body:    'Inter', sans-serif;
+    --mono:    'Space Grotesk', sans-serif;
+
+    --container: 1180px;
+    --radius: 2px;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  ul{ margin:0; padding:0; list-style:none; }
+  h1,h2,h3,p{ margin:0; }
+  button, input, select, textarea{ font-family:inherit; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  :focus-visible{
+    outline:2px solid var(--brass);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:var(--container);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    font-size:12px;
+    font-weight:500;
+  }
+
+  /* ============ HEADER ============ */
+  .site-header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:26px 32px;
+    background:transparent;
+    transition:padding .35s ease, background .35s ease, box-shadow .35s ease;
+  }
+  .site-header.scrolled{
+    padding:14px 32px;
+    background:rgba(18,24,26,0.92);
+    backdrop-filter:blur(6px);
+    box-shadow:0 1px 0 var(--line-on-dark);
+  }
+  .brand{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:22px;
+    letter-spacing:0.03em;
+    color:var(--paper);
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .brand span{ color:var(--brass-soft); font-style:italic; font-weight:500; }
+
+  .header-right{
+    display:flex;
+    align-items:center;
+    gap:26px;
+    flex-grow:1;
+    justify-content:flex-end;
+  }
+
+  .nav-links{
+    display:flex;
+    gap:36px;
+    align-items:center;
+  }
+  .nav-links a{
+    color:var(--paper);
+    text-decoration:none;
+    font-family:var(--mono);
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    position:relative;
+    padding:4px 0;
+    opacity:0.86;
+    transition:opacity .2s ease;
+  }
+  .nav-links a:hover{ opacity:1; }
+  .nav-links a::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0;
+    height:1px; background:var(--brass-soft);
+    transform:scaleX(0); transform-origin:left;
+    transition:transform .25s ease;
+  }
+  .nav-links a:hover::after{ transform:scaleX(1); }
+
+  .nav-cta{
+    font-family:var(--mono);
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    color:var(--ink);
+    background:var(--brass-soft);
+    border:1px solid var(--brass-soft);
+    padding:10px 20px;
+    border-radius:var(--radius);
+    text-decoration:none;
+    transition:background .2s ease, color .2s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{ background:transparent; color:var(--brass-soft); }
+
+  /* language switcher */
+  .lang-switch{
+    display:flex;
+    border:1px solid var(--line-on-dark);
+    border-radius:var(--radius);
+    overflow:hidden;
+    flex-shrink:0;
+  }
+  .lang-btn{
+    background:transparent;
+    border:none;
+    color:var(--paper-dim);
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.08em;
+    padding:9px 11px;
+    cursor:pointer;
+    transition:background .2s ease, color .2s ease;
+  }
+  .lang-btn + .lang-btn{ border-left:1px solid var(--line-on-dark); }
+  .lang-btn:hover:not(.active){ color:var(--paper); }
+  .lang-btn.active{ background:var(--brass-soft); color:var(--ink); }
+
+  .lang-switch.mobile{
+    display:none;
+    margin-top:8px;
+  }
+  .lang-switch.mobile .lang-btn{ padding:10px 14px; font-size:13px; }
+
+  .nav-toggle{
+    display:none;
+    background:none; border:none; cursor:pointer;
+    width:32px; height:22px; position:relative;
+    padding:0;
+    flex-shrink:0;
+  }
+  .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
+    content:""; position:absolute; left:0; right:0; height:1px;
+    background:var(--paper); transition:transform .25s ease, opacity .25s ease, top .25s ease;
+  }
+  .nav-toggle span{ top:10px; }
+  .nav-toggle span::before{ top:-8px; }
+  .nav-toggle span::after{ top:8px; }
+  .nav-toggle.open span{ background:transparent; }
+  .nav-toggle.open span::before{ top:0; transform:rotate(45deg); background:var(--paper);}
+  .nav-toggle.open span::after{ top:0; transform:rotate(-45deg); background:var(--paper);}
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    background:var(--ink);
+    color:var(--paper);
+    overflow:hidden;
+    padding:140px 32px 90px;
+  }
+  .hero canvas{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    opacity:0.55;
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    max-width:var(--container);
+    margin:0 auto;
+    width:100%;
+  }
+  .hero .eyebrow{ color:var(--brass-soft); margin-bottom:22px; display:block; }
+  .hero h1{
+    font-family:var(--display);
+    font-weight:500;
+    font-size:clamp(52px, 10vw, 128px);
+    line-height:0.96;
+    letter-spacing:-0.01em;
+    margin-bottom:28px;
+  }
+  .hero h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--brass-soft);
+  }
+  .hero p.lede{
+    font-size:clamp(17px, 2vw, 21px);
+    max-width:540px;
+    color:var(--paper-dim);
+    margin-bottom:44px;
+    font-weight:400;
+  }
+  .hero-ctas{ display:flex; gap:18px; flex-wrap:wrap; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--mono);
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    padding:15px 28px;
+    border-radius:var(--radius);
+    text-decoration:none;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:all .25s ease;
+  }
+  .btn-primary{
+    background:var(--brass-soft);
+    color:var(--ink);
+    border-color:var(--brass-soft);
+  }
+  .btn-primary:hover{ background:transparent; color:var(--brass-soft); border-color:var(--brass-soft); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--paper);
+    border-color:var(--line-on-dark);
+  }
+  .btn-ghost:hover{ border-color:var(--paper); }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:34px; left:32px;
+    z-index:2;
+    display:flex; align-items:center; gap:12px;
+    color:var(--paper-dim);
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+  }
+  .scroll-cue .line{
+    width:1px; height:38px;
+    background:linear-gradient(var(--brass-soft), transparent);
+    animation:cueMove 2.2s ease-in-out infinite;
+  }
+  @keyframes cueMove{
+    0%,100%{ transform:scaleY(1); opacity:.9;}
+    50%{ transform:scaleY(0.5); opacity:.4;}
+  }
+
+  /* ============ SHARD DIVIDER (signature element) ============ */
+  .shard-divider{
+    width:100%;
+    height:46px;
+    line-height:0;
+    background:var(--ink);
+  }
+  .shard-divider svg{ width:100%; height:100%; }
+  .shard-divider.on-paper{ background:var(--paper); }
+  .shard-divider.on-teal{ background:var(--teal-deep); }
+
+  /* ============ SECTION SHELL ============ */
+  section.block{ padding:120px 0; }
+  .section-head{
+    max-width:640px;
+    margin-bottom:64px;
+  }
+  .section-head .eyebrow{ color:var(--brass); margin-bottom:16px; display:block; }
+  .section-head h2{
+    font-family:var(--display);
+    font-weight:500;
+    font-size:clamp(32px, 5vw, 54px);
+    letter-spacing:-0.01em;
+    line-height:1.06;
+  }
+  .section-head p{
+    margin-top:20px;
+    color:var(--ash);
+    font-size:17px;
+    max-width:520px;
+  }
+  .on-dark .section-head p{ color:var(--paper-dim); }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .reveal.visible{ opacity:1; transform:translateY(0); }
+
+  /* ============ ABOUT ============ */
+  .about{ background:var(--paper); }
+  .about-grid{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:80px;
+    align-items:start;
+  }
+  .about-panel{
+    aspect-ratio:4/5;
+    position:relative;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(184,146,90,0.35), transparent 55%),
+      radial-gradient(circle at 75% 70%, rgba(31,78,73,0.55), transparent 60%),
+      var(--ink);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .about-panel::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(115deg, transparent 0 26px, rgba(243,238,227,0.045) 26px 27px),
+      repeating-linear-gradient(25deg, transparent 0 32px, rgba(243,238,227,0.045) 32px 33px);
+  }
+  .about-panel .caption{
+    position:absolute; left:24px; bottom:24px; right:24px;
+    color:var(--paper-dim);
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    border-top:1px solid var(--line-on-dark);
+    padding-top:14px;
+  }
+  .about-text p{
+    font-size:17px;
+    color:#33393b;
+    margin-bottom:20px;
+    max-width:56ch;
+  }
+  .about-text p:first-child{
+    font-family:var(--display);
+    font-size:22px;
+    font-style:italic;
+    color:var(--ink);
+    font-weight:400;
+    line-height:1.5;
+  }
+
+  .facts{
+    margin-top:44px;
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:28px 40px;
+    border-top:1px solid var(--line);
+    padding-top:32px;
+  }
+  .fact dt{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    color:var(--brass);
+    margin-bottom:6px;
+  }
+  .fact dd{
+    margin:0;
+    font-size:16px;
+    color:var(--ink);
+  }
+
+  /* ============ SERVICES ============ */
+  .services{ background:var(--ink); color:var(--paper); }
+  .service-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:1px;
+    background:var(--line-on-dark);
+    border:1px solid var(--line-on-dark);
+  }
+  .service-card{
+    background:var(--ink);
+    padding:40px 30px;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+    transition:background .3s ease;
+  }
+  .service-card:hover{ background:var(--ink-soft); }
+  .service-icon{ width:34px; height:34px; }
+  .service-icon svg{ width:100%; height:100%; }
+  .service-card h3{
+    font-family:var(--display);
+    font-size:22px;
+    font-weight:500;
+  }
+  .service-card p{
+    font-size:14.5px;
+    color:var(--paper-dim);
+    flex-grow:1;
+  }
+  .service-meta{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--brass-soft);
+    border-top:1px solid var(--line-on-dark);
+    padding-top:16px;
+  }
+
+  /* ============ MENU ============ */
+  .menu{ background:var(--paper); }
+  .menu-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:32px;
+  }
+  .menu-card{
+    background:var(--ink);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .menu-card-img{
+    width:100%;
+    aspect-ratio:4/3;
+    overflow:hidden;
+    position:relative;
+  }
+  .menu-card-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .5s ease;
+  }
+  .menu-card:hover .menu-card-img img{ transform:scale(1.05); }
+  .menu-card-body{
+    padding:24px 22px 26px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    flex-grow:1;
+  }
+  .menu-tag{
+    font-family:var(--mono);
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    color:var(--brass-soft);
+  }
+  .menu-card h4{
+    font-family:var(--display);
+    font-size:20px;
+    font-weight:500;
+    color:var(--paper);
+    line-height:1.25;
+  }
+  .menu-card p{
+    font-size:14px;
+    color:var(--paper-dim);
+    flex-grow:1;
+  }
+  .menu-price{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--brass);
+    border-top:1px solid var(--line-on-dark);
+    padding-top:12px;
+    margin-top:4px;
+  }
+  .menu-note{
+    margin-top:44px;
+    font-size:13.5px;
+    color:var(--ash);
+    font-style:italic;
+  }
+
+  /* ============ CONTACT ============ */
+  .contact{ background:var(--teal-deep); color:var(--paper); }
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1.1fr;
+    gap:80px;
+  }
+  .contact-info dl{ margin-top:38px; display:flex; flex-direction:column; gap:24px; }
+  .contact-info dt{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    color:var(--brass-soft);
+    margin-bottom:6px;
+  }
+  .contact-info dd{ margin:0; font-size:16.5px; color:var(--paper-dim); }
+  .contact-info a{ text-decoration:none; border-bottom:1px solid var(--line-on-dark); }
+  .contact-info a:hover{ border-color:var(--brass-soft); color:var(--brass-soft); }
+
+  .map-abstract{
+    margin-top:38px;
+    height:150px;
+    border:1px solid var(--line-on-dark);
+    position:relative;
+    overflow:hidden;
+  }
+  .map-abstract svg{ width:100%; height:100%; }
+
+  .form-card{
+    background:rgba(243,238,227,0.04);
+    border:1px solid var(--line-on-dark);
+    padding:40px;
+    border-radius:var(--radius);
+  }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .field{ margin-bottom:22px; }
+  .field label{
+    display:block;
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    color:var(--brass-soft);
+    margin-bottom:9px;
+  }
+  .field input, .field select, .field textarea{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--line-on-dark);
+    color:var(--paper);
+    padding:10px 2px;
+    font-size:15px;
+    transition:border-color .2s ease;
+  }
+  .field select option{ color:#111; }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none;
+    border-color:var(--brass-soft);
+  }
+  .field textarea{ resize:vertical; min-height:80px; }
+  .field.error input, .field.error select, .field.error textarea{ border-color:#c26a5a; }
+  .field .err-msg{
+    display:none;
+    font-size:12px;
+    color:#e0a08f;
+    margin-top:6px;
+    font-family:var(--mono);
+  }
+  .field.error .err-msg{ display:block; }
+
+  .form-submit{
+    width:100%;
+    justify-content:center;
+    margin-top:6px;
+  }
+  .form-status{
+    margin-top:18px;
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.04em;
+    color:var(--brass-soft);
+    min-height:18px;
+  }
+
+  /* ============ FOOTER ============ */
+  .site-footer{
+    background:var(--ink);
+    color:var(--paper-dim);
+    padding:60px 0 34px;
+  }
+  .footer-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:30px;
+    padding-bottom:36px;
+    border-bottom:1px solid var(--line-on-dark);
+  }
+  .footer-brand{
+    font-family:var(--display);
+    font-size:30px;
+    color:var(--paper);
+  }
+  .footer-tag{
+    font-family:var(--display);
+    font-style:italic;
+    color:var(--brass-soft);
+    font-size:15px;
+    margin-top:8px;
+  }
+  .footer-social{ display:flex; gap:18px; }
+  .footer-social a{
+    width:36px; height:36px;
+    border:1px solid var(--line-on-dark);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    text-decoration:none;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .footer-social a:hover{ border-color:var(--brass-soft); background:rgba(184,146,90,0.1); }
+  .footer-social svg{ width:16px; height:16px; }
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    padding-top:26px;
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.04em;
+    color:var(--ash);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:900px){
+    .about-grid, .contact-grid{ grid-template-columns:1fr; gap:48px; }
+    .service-grid{ grid-template-columns:repeat(2,1fr); }
+    .menu-grid{ grid-template-columns:repeat(2,1fr); }
+    .form-row{ grid-template-columns:1fr; }
+  }
+
+  @media (max-width:760px){
+    .nav-links, .nav-cta, .lang-switch:not(.mobile){ display:none; }
+    .nav-toggle{ display:block; }
+    .header-right{ justify-content:flex-end; }
+    .site-header{ padding:22px 20px; }
+    .wrap{ padding:0 20px; }
+    section.block{ padding:88px 0; }
+    .service-grid{ grid-template-columns:1fr; }
+    .menu-grid{ grid-template-columns:1fr; }
+    .facts{ grid-template-columns:1fr; }
+
+    .mobile-nav{
+      position:fixed; inset:0;
+      background:var(--ink);
+      z-index:99;
+      display:flex; flex-direction:column;
+      align-items:flex-start;
+      justify-content:center;
+      gap:26px;
+      padding:0 36px;
+      transform:translateY(-100%);
+      transition:transform .4s ease;
+    }
+    .mobile-nav.open{ transform:translateY(0); }
+    .mobile-nav a{
+      color:var(--paper);
+      text-decoration:none;
+      font-family:var(--display);
+      font-size:34px;
+      font-style:italic;
+    }
+    .mobile-nav .btn{ margin-top:10px; }
+    .lang-switch.mobile{ display:flex; }
+  }
+
+  @media (max-width:480px){
+    .hero{ padding:120px 20px 70px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <a href="#hero" class="brand">Cendra<span>.</span></a>
+  <div class="header-right">
+    <nav class="nav-links">
+      <a href="#about" data-i18n="nav_about">Sobre nosotros</a>
+      <a href="#services" data-i18n="nav_services">Servicios</a>
+      <a href="#menu" data-i18n="nav_menu">Carta</a>
+      <a href="#contact" data-i18n="nav_contact">Contacto</a>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Idioma / Language">
+      <button class="lang-btn active" data-lang="es" type="button">ES</button>
+      <button class="lang-btn" data-lang="ca" type="button">CA</button>
+      <button class="lang-btn" data-lang="en" type="button">EN</button>
+      <button class="lang-btn" data-lang="fr" type="button">FR</button>
+    </div>
+    <a href="#contact" class="nav-cta" data-i18n="nav_reserve">Reservar mesa</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" data-i18n-aria="nav_toggle_aria" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+</header>
+
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#hero" data-i18n="mobile_home">Inicio</a>
+  <a href="#about" data-i18n="nav_about">Sobre nosotros</a>
+  <a href="#services" data-i18n="nav_services">Servicios</a>
+  <a href="#menu" data-i18n="nav_menu">Carta</a>
+  <a href="#contact" data-i18n="nav_contact">Contacto</a>
+  <a href="#contact" class="btn btn-primary" data-i18n="nav_reserve">Reservar mesa</a>
+  <div class="lang-switch mobile" role="group" aria-label="Idioma / Language">
+    <button class="lang-btn active" data-lang="es" type="button">ES</button>
+    <button class="lang-btn" data-lang="ca" type="button">CA</button>
+    <button class="lang-btn" data-lang="en" type="button">EN</button>
+    <button class="lang-btn" data-lang="fr" type="button">FR</button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <canvas id="emberCanvas"></canvas>
+  <div class="hero-inner">
+    <span class="eyebrow" data-i18n="hero_eyebrow">Barrio Gótico · Barcelona · Fundado en 2016</span>
+    <h1 data-i18n-html="hero_title_html">Cendra<br><em>fuego y mar,</em> recordados</h1>
+    <p class="lede" data-i18n="hero_lede">Una cocina de fuego vivo en el corazón del Barrio Gótico, construida con producto de la Boquería, técnica catalana y el silencioso teatro de una parrilla abierta.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-primary" data-i18n="hero_cta_reserve">Reservar mesa</a>
+      <a href="#services" class="btn btn-ghost" data-i18n="hero_cta_services">Ver servicios</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span class="line"></span><span data-i18n="scroll_cue">Desplázate</span></div>
+</section>
+
+<div class="shard-divider" id="divider1"></div>
+
+<!-- ============ ABOUT ============ -->
+<section class="block about" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-panel reveal">
+        <div class="caption" data-i18n="about_panel_caption">Cocina abierta · Parrilla de carbón · Fundado en 2016</div>
+      </div>
+      <div class="about-text">
+        <div class="section-head reveal" style="margin-bottom:28px;">
+          <span class="eyebrow" data-i18n="about_eyebrow">Sobre Cendra</span>
+        </div>
+        <p class="reveal" data-i18n-html="about_p1_html">Cendra significa <em>ceniza</em> — lo que queda cuando el fuego ha hecho su trabajo, y donde creemos que vive el mejor sabor.</p>
+        <p class="reveal" data-i18n="about_p2">La chef Martina Roig se formó en parrillas de Girona y Buenos Aires antes de volver a Barcelona para abrir una cocina sin un solo quemador de gas: todo se cocina sobre carbón de encina, sarmientos o brasas moribundas, tal como cocinaba su abuela en el Empordà.</p>
+        <p class="reveal" data-i18n="about_p3">El producto llega cada mañana desde la Boquería y el puerto pesquero de la Barceloneta. El menú cambia con las barcas y las estaciones, nunca con las tendencias.</p>
+
+        <dl class="facts reveal">
+          <div class="fact"><dt data-i18n="fact_chef_label">Chef</dt><dd data-i18n="fact_chef_value">Martina Roig</dd></div>
+          <div class="fact"><dt data-i18n="fact_kitchen_label">Cocina</dt><dd data-i18n="fact_kitchen_value">Fuego de leña y carbón, sin gas</dd></div>
+          <div class="fact"><dt data-i18n="fact_sourcing_label">Origen</dt><dd data-i18n="fact_sourcing_value">Mercado de la Boquería y puerto de la Barceloneta</dd></div>
+          <div class="fact"><dt data-i18n="fact_seating_label">Aforo</dt><dd data-i18n="fact_seating_value">34 comensales, 8 en la barra</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="shard-divider on-paper" id="divider2"></div>
+
+<!-- ============ SERVICES ============ -->
+<section class="block services" id="services">
+  <div class="wrap">
+    <div class="section-head reveal on-dark">
+      <span class="eyebrow" data-i18n="services_eyebrow">Qué ofrecemos</span>
+      <h2 data-i18n="services_title">Cuatro maneras de sentarte junto a nuestro fuego.</h2>
+      <p data-i18n="services_subtitle">Cada servicio gira en torno a la misma parrilla — cómo lo vivas depende de ti.</p>
+    </div>
+
+    <div class="service-grid reveal">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#d8b98a" stroke-width="1.3"><path d="M12 2c-2 4-5 6-5 10a5 5 0 0 0 10 0c0-2-1-3-2-4 .3 2-.7 3-2 3-2 0-2.5-1.6-1.5-3.5C12.5 6 12 4 12 2Z"/></svg>
+        </div>
+        <h3 data-i18n="service1_title">Menú Degustación</h3>
+        <p data-i18n="service1_desc">Un recorrido de doce platos por el fuego vivo, desde aperturas crudas y curadas hasta principales asados en brasas y un último plato cocinado en mesa.</p>
+        <div class="service-meta" data-i18n="service1_meta">12 platos · 3 h · desde 135 €</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#d8b98a" stroke-width="1.3"><circle cx="8" cy="8" r="2.4"/><circle cx="14" cy="6" r="2.4"/><circle cx="16" cy="12" r="2.4"/><path d="M11 10.4V20M8 10.4l-1 6M14 8.4l1 6"/></svg>
+        </div>
+        <h3 data-i18n="service2_title">Maridaje de Vinos</h3>
+        <p data-i18n="service2_desc">Nuestro sumiller marida cada plato con pequeños productores del Priorat, el Empordà y las Islas Canarias — natural cuando conviene al plato, clásico cuando no.</p>
+        <div class="service-meta" data-i18n="service2_meta">6–12 copas · desde 65 €</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#d8b98a" stroke-width="1.3"><rect x="3" y="9" width="18" height="9" rx="1"/><path d="M7 9V6a5 5 0 0 1 10 0v3"/></svg>
+        </div>
+        <h3 data-i18n="service3_title">Comedor Privado</h3>
+        <p data-i18n="service3_desc">Una sala interior de piedra acoge hasta catorce comensales alrededor de una sola mesa, con servicio propio y un menú construido en torno al fuego de tu mesa.</p>
+        <div class="service-meta" data-i18n="service3_meta">Hasta 14 personas · bajo petición</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#d8b98a" stroke-width="1.3"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        </div>
+        <h3 data-i18n="service4_title">Terraza y Bar</h3>
+        <p data-i18n="service4_desc">Aperitivos, vermut y pequeños platos a la brasa en nuestra terraza a la sombra, junto a la Carrer de l'Argenteria — sin reserva, por riguroso orden de llegada.</p>
+        <div class="service-meta" data-i18n="service4_meta">Sin reserva · de mediodía hasta tarde</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="shard-divider on-paper" id="dividerMenu"></div>
+
+<!-- ============ MENU ============ -->
+<section class="block menu" id="menu">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="menu_eyebrow">Nuestra carta</span>
+      <h2 data-i18n="menu_title">Una carta escrita por el fuego.</h2>
+      <p data-i18n="menu_subtitle">Platos que cambian con el mercado, pero siempre pasan por la brasa.</p>
+    </div>
+
+    <div class="menu-grid reveal">
+      <article class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.pexels.com/photos/9670682/pexels-photo-9670682.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1" alt="Jamón ibérico de bellota cortado a cuchillo" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <span class="menu-tag" data-i18n="cat_starters">Para empezar</span>
+          <h4 data-i18n="dish1_name">Jamón ibérico de bellota</h4>
+          <p data-i18n="dish1_desc">Cortado a cuchillo, 100% ibérico de bellota, con pan de cristal.</p>
+          <div class="menu-price" data-i18n="dish1_price">26 €</div>
+        </div>
+      </article>
+
+      <article class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.pexels.com/photos/17942043/pexels-photo-17942043/free-photo-of-plate-of-tuna-crudo.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1" alt="Tartar de atún rojo con aguacate" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <span class="menu-tag" data-i18n="cat_starters">Para empezar</span>
+          <h4 data-i18n="dish2_name">Tartar de atún rojo</h4>
+          <p data-i18n="dish2_desc">Atún rojo de almadraba, aguacate, sésamo negro y soja.</p>
+          <div class="menu-price" data-i18n="dish2_price">19 €</div>
+        </div>
+      </article>
+
+      <article class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.pexels.com/photos/37068830/pexels-photo-37068830.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1" alt="Pulpo a la brasa de carbón" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <span class="menu-tag" data-i18n="cat_mains">De la brasa</span>
+          <h4 data-i18n="dish3_name">Pulpo a la brasa</h4>
+          <p data-i18n="dish3_desc">Pulpo gallego a la brasa de carbón con parmentier ahumada y pimentón de la Vera.</p>
+          <div class="menu-price" data-i18n="dish3_price">24 €</div>
+        </div>
+      </article>
+
+      <article class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.pexels.com/photos/6542790/pexels-photo-6542790.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1" alt="Chuletón de vaca madurada a la brasa" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <span class="menu-tag" data-i18n="cat_mains">De la brasa</span>
+          <h4 data-i18n="dish4_name">Chuletón de vaca madurada</h4>
+          <p data-i18n="dish4_desc">Vaca madurada 45 días sobre brasa de encina, para compartir. Con pimientos de Padrón.</p>
+          <div class="menu-price" data-i18n="dish4_price">68 € (para 2)</div>
+        </div>
+      </article>
+
+      <article class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.pexels.com/photos/2374946/pexels-photo-2374946.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1" alt="Rodaballo salvaje a la brasa" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <span class="menu-tag" data-i18n="cat_mains">De la brasa</span>
+          <h4 data-i18n="dish5_name">Rodaballo salvaje a la brasa</h4>
+          <p data-i18n="dish5_desc">Rodaballo salvaje del Cantábrico a la parrilla con aceite de perejil y limón.</p>
+          <div class="menu-price" data-i18n="dish5_price">32 €</div>
+        </div>
+      </article>
+
+      <article class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.pexels.com/photos/7593465/pexels-photo-7593465.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1" alt="Crema catalana quemada" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <span class="menu-tag" data-i18n="cat_desserts">Postres</span>
+          <h4 data-i18n="dish6_name">Crema catalana quemada</h4>
+          <p data-i18n="dish6_desc">Receta tradicional, quemada al momento en mesa.</p>
+          <div class="menu-price" data-i18n="dish6_price">9 €</div>
+        </div>
+      </article>
+    </div>
+
+    <p class="menu-note reveal" data-i18n="menu_note">La carta cambia con el mercado y la temporada; estos platos son un ejemplo de lo que preparamos.</p>
+  </div>
+</section>
+
+<div class="shard-divider on-teal" id="divider3"></div>
+
+<!-- ============ CONTACT ============ -->
+<section class="block contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-head reveal on-dark" style="margin-bottom:0;">
+          <span class="eyebrow" data-i18n="contact_eyebrow">Visítanos</span>
+          <h2 data-i18n="contact_title">Encuentra tu mesa.</h2>
+          <p data-i18n="contact_subtitle">En el casco antiguo, a dos minutos de la Plaça de l'Àngel.</p>
+        </div>
+
+        <dl class="reveal">
+          <div>
+            <dt data-i18n="contact_address_label">Dirección</dt>
+            <dd data-i18n="contact_address_value">Carrer de l'Argenteria 24, 08003 Barcelona</dd>
+          </div>
+          <div>
+            <dt data-i18n="contact_hours_label">Horario</dt>
+            <dd data-i18n="contact_hours_value">Mar – Sáb, 13:00–16:00 y 20:00–23:30 · Cerrado Dom–Lun</dd>
+          </div>
+          <div>
+            <dt data-i18n="contact_phone_label">Teléfono</dt>
+            <dd><a href="tel:+34933157744">+34 93 315 77 44</a></dd>
+          </div>
+          <div>
+            <dt data-i18n="contact_email_label">Email</dt>
+            <dd><a href="mailto:hola@cendra-bcn.com">hola@cendra-bcn.com</a></dd>
+          </div>
+        </dl>
+
+        <div class="map-abstract reveal" id="mapAbstract" aria-hidden="true"></div>
+      </div>
+
+      <div class="form-card reveal">
+        <form id="reserveForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="fname" data-i18n="form_name_label">Nombre</label>
+              <input type="text" id="fname" name="name" required autocomplete="name">
+              <span class="err-msg" data-i18n="form_error_name">Por favor, escribe tu nombre.</span>
+            </div>
+            <div class="field">
+              <label for="femail" data-i18n="form_email_label">Email</label>
+              <input type="email" id="femail" name="email" required autocomplete="email">
+              <span class="err-msg" data-i18n="form_error_email">Por favor, introduce un email válido.</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="fdate" data-i18n="form_date_label">Fecha</label>
+              <input type="date" id="fdate" name="date" required>
+              <span class="err-msg" data-i18n="form_error_date">Por favor, elige una fecha.</span>
+            </div>
+            <div class="field">
+              <label for="fguests" data-i18n="form_guests_label">Comensales</label>
+              <select id="fguests" name="guests" required>
+                <option value="" data-i18n="form_guests_placeholder">Selecciona</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7+</option>
+              </select>
+              <span class="err-msg" data-i18n="form_error_guests">Por favor, selecciona el número de comensales.</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="fmsg" data-i18n="form_message_label">Mensaje (opcional)</label>
+            <textarea id="fmsg" name="message" data-i18n-placeholder="form_message_placeholder" placeholder="Alergias, celebraciones o peticiones para la cocina"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit" data-i18n="form_submit">Enviar solicitud</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Cendra</div>
+        <div class="footer-tag">Foc, mar i memòria</div>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/feliipes_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14 8.5h2.5V5H14c-2 0-3.5 1.5-3.5 3.5V11H8v3.5h2.5V21H14v-6.5h2.3l.7-3.5h-3V9c0-.3.2-1 1-1Z"/></svg></a>
+        <a href="#" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-i18n="footer_copy">© <span id="year"></span> Restaurante Cendra · Barcelona</span>
+      <span>Carrer de l'Argenteria 24 · +34 93 315 77 44</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ================= TRANSLATIONS ================= */
+  var translations = {
+    es: {
+      title_tag: "Cendra — Fuego y Mar, Barcelona",
+      meta_description: "Cendra es un restaurante de alta cocina en el Barrio Gótico de Barcelona, construido en torno al fuego vivo y el producto mediterráneo.",
+      nav_about: "Sobre nosotros", nav_services: "Servicios", nav_menu: "Carta", nav_contact: "Contacto", nav_reserve: "Reservar mesa",
+      nav_toggle_aria: "Abrir menú", mobile_home: "Inicio",
+      menu_eyebrow: "Nuestra carta",
+      menu_title: "Una carta escrita por el fuego.",
+      menu_subtitle: "Platos que cambian con el mercado, pero siempre pasan por la brasa.",
+      menu_note: "La carta cambia con el mercado y la temporada; estos platos son un ejemplo de lo que preparamos.",
+      cat_starters: "Para empezar", cat_mains: "De la brasa", cat_desserts: "Postres",
+      dish1_name: "Jamón ibérico de bellota", dish1_desc: "Cortado a cuchillo, 100% ibérico de bellota, con pan de cristal.", dish1_price: "26 €",
+      dish2_name: "Tartar de atún rojo", dish2_desc: "Atún rojo de almadraba, aguacate, sésamo negro y soja.", dish2_price: "19 €",
+      dish3_name: "Pulpo a la brasa", dish3_desc: "Pulpo gallego a la brasa de carbón con parmentier ahumada y pimentón de la Vera.", dish3_price: "24 €",
+      dish4_name: "Chuletón de vaca madurada", dish4_desc: "Vaca madurada 45 días sobre brasa de encina, para compartir. Con pimientos de Padrón.", dish4_price: "68 € (para 2)",
+      dish5_name: "Rodaballo salvaje a la brasa", dish5_desc: "Rodaballo salvaje del Cantábrico a la parrilla con aceite de perejil y limón.", dish5_price: "32 €",
+      dish6_name: "Crema catalana quemada", dish6_desc: "Receta tradicional, quemada al momento en mesa.", dish6_price: "9 €",
+      hero_eyebrow: "Barrio Gótico · Barcelona · Fundado en 2016",
+      hero_title_html: "Cendra<br><em>fuego y mar,</em> recordados",
+      hero_lede: "Una cocina de fuego vivo en el corazón del Barrio Gótico, construida con producto de la Boquería, técnica catalana y el silencioso teatro de una parrilla abierta.",
+      hero_cta_reserve: "Reservar mesa", hero_cta_services: "Ver servicios", scroll_cue: "Desplázate",
+      about_eyebrow: "Sobre Cendra",
+      about_p1_html: "Cendra significa <em>ceniza</em> — lo que queda cuando el fuego ha hecho su trabajo, y donde creemos que vive el mejor sabor.",
+      about_p2: "La chef Martina Roig se formó en parrillas de Girona y Buenos Aires antes de volver a Barcelona para abrir una cocina sin un solo quemador de gas: todo se cocina sobre carbón de encina, sarmientos o brasas moribundas, tal como cocinaba su abuela en el Empordà.",
+      about_p3: "El producto llega cada mañana desde la Boquería y el puerto pesquero de la Barceloneta. El menú cambia con las barcas y las estaciones, nunca con las tendencias.",
+      about_panel_caption: "Cocina abierta · Parrilla de carbón · Fundado en 2016",
+      fact_chef_label: "Chef", fact_chef_value: "Martina Roig",
+      fact_kitchen_label: "Cocina", fact_kitchen_value: "Fuego de leña y carbón, sin gas",
+      fact_sourcing_label: "Origen", fact_sourcing_value: "Mercado de la Boquería y puerto de la Barceloneta",
+      fact_seating_label: "Aforo", fact_seating_value: "34 comensales, 8 en la barra",
+      services_eyebrow: "Qué ofrecemos",
+      services_title: "Cuatro maneras de sentarte junto a nuestro fuego.",
+      services_subtitle: "Cada servicio gira en torno a la misma parrilla — cómo lo vivas depende de ti.",
+      service1_title: "Menú Degustación",
+      service1_desc: "Un recorrido de doce platos por el fuego vivo, desde aperturas crudas y curadas hasta principales asados en brasas y un último plato cocinado en mesa.",
+      service1_meta: "12 platos · 3 h · desde 135 €",
+      service2_title: "Maridaje de Vinos",
+      service2_desc: "Nuestro sumiller marida cada plato con pequeños productores del Priorat, el Empordà y las Islas Canarias — natural cuando conviene al plato, clásico cuando no.",
+      service2_meta: "6–12 copas · desde 65 €",
+      service3_title: "Comedor Privado",
+      service3_desc: "Una sala interior de piedra acoge hasta catorce comensales alrededor de una sola mesa, con servicio propio y un menú construido en torno al fuego de tu mesa.",
+      service3_meta: "Hasta 14 personas · bajo petición",
+      service4_title: "Terraza y Bar",
+      service4_desc: "Aperitivos, vermut y pequeños platos a la brasa en nuestra terraza a la sombra, junto a la Carrer de l'Argenteria — sin reserva, por riguroso orden de llegada.",
+      service4_meta: "Sin reserva · de mediodía hasta tarde",
+      contact_eyebrow: "Visítanos", contact_title: "Encuentra tu mesa.",
+      contact_subtitle: "En el casco antiguo, a dos minutos de la Plaça de l'Àngel.",
+      contact_address_label: "Dirección", contact_address_value: "Carrer de l'Argenteria 24, 08003 Barcelona",
+      contact_hours_label: "Horario", contact_hours_value: "Mar – Sáb, 13:00–16:00 y 20:00–23:30 · Cerrado Dom–Lun",
+      contact_phone_label: "Teléfono", contact_email_label: "Email",
+      form_name_label: "Nombre", form_email_label: "Email", form_date_label: "Fecha",
+      form_guests_label: "Comensales", form_guests_placeholder: "Selecciona",
+      form_message_label: "Mensaje (opcional)", form_message_placeholder: "Alergias, celebraciones o peticiones para la cocina",
+      form_submit: "Enviar solicitud", form_sending: "Enviando…",
+      form_error_name: "Por favor, escribe tu nombre.",
+      form_error_email: "Por favor, introduce un email válido.",
+      form_error_date: "Por favor, elige una fecha.",
+      form_error_guests: "Por favor, selecciona el número de comensales.",
+      form_error_generic: "Revisa los campos marcados.",
+      form_success_prefix: "Gracias, ", form_success_suffix: ". Confirmaremos tu mesa por email en breve.",
+      footer_copy: "© {year} Restaurante Cendra · Barcelona"
+    },
+    ca: {
+      title_tag: "Cendra — Foc i Mar, Barcelona",
+      meta_description: "Cendra és un restaurant d'alta cuina al Barri Gòtic de Barcelona, construït entorn del foc viu i el producte mediterrani.",
+      nav_about: "Sobre nosaltres", nav_services: "Serveis", nav_menu: "Carta", nav_contact: "Contacte", nav_reserve: "Reserva una taula",
+      nav_toggle_aria: "Obre el menú", mobile_home: "Inici",
+      menu_eyebrow: "La nostra carta",
+      menu_title: "Una carta escrita pel foc.",
+      menu_subtitle: "Plats que canvien amb el mercat, però sempre passen per la brasa.",
+      menu_note: "La carta canvia amb el mercat i la temporada; aquests plats són un exemple del que preparem.",
+      cat_starters: "Per començar", cat_mains: "De la brasa", cat_desserts: "Postres",
+      dish1_name: "Pernil ibèric de gla", dish1_desc: "Tallat a ganivet, 100% ibèric de gla, amb pa de vidre.", dish1_price: "26 €",
+      dish2_name: "Tàrtar de tonyina vermella", dish2_desc: "Tonyina vermella d'almadrava, alvocat, sèsam negre i soja.", dish2_price: "19 €",
+      dish3_name: "Pop a la brasa", dish3_desc: "Pop gallec a la brasa de carbó amb parmentier fumada i pebre vermell de la Vera.", dish3_price: "24 €",
+      dish4_name: "Entrecot de vedella madurada", dish4_desc: "Vedella madurada 45 dies sobre brasa d'alzina, per compartir. Amb pebrots de Padrón.", dish4_price: "68 € (per a 2)",
+      dish5_name: "Rèmol salvatge a la brasa", dish5_desc: "Rèmol salvatge del Cantàbric a la graella amb oli de julivert i llimona.", dish5_price: "32 €",
+      dish6_name: "Crema catalana cremada", dish6_desc: "Recepta tradicional, cremada al moment a taula.", dish6_price: "9 €",
+      hero_eyebrow: "Barri Gòtic · Barcelona · Fundat el 2016",
+      hero_title_html: "Cendra<br><em>foc i mar,</em> recordats",
+      hero_lede: "Una cuina de foc viu al cor del Barri Gòtic, construïda amb producte de la Boqueria, tècnica catalana i el silenciós teatre d'una graella oberta.",
+      hero_cta_reserve: "Reserva una taula", hero_cta_services: "Veure serveis", scroll_cue: "Desplaça't",
+      about_eyebrow: "Sobre Cendra",
+      about_p1_html: "Cendra vol dir <em>cendra</em> — el que queda quan el foc ha fet la seva feina, i on creiem que hi viu el millor gust.",
+      about_p2: "La xef Martina Roig es va formar en graelles de Girona i Buenos Aires abans de tornar a Barcelona per obrir una cuina sense cap cremador de gas: tot es cou sobre carbó d'alzina, sarments o brases moribundes, tal com cuinava la seva àvia a l'Empordà.",
+      about_p3: "El producte arriba cada matí des de la Boqueria i el port pesquer de la Barceloneta. El menú canvia amb les barques i les estacions, mai amb les tendències.",
+      about_panel_caption: "Cuina oberta · Graella de carbó · Fundat el 2016",
+      fact_chef_label: "Xef", fact_chef_value: "Martina Roig",
+      fact_kitchen_label: "Cuina", fact_kitchen_value: "Foc de llenya i carbó, sense gas",
+      fact_sourcing_label: "Origen", fact_sourcing_value: "Mercat de la Boqueria i port de la Barceloneta",
+      fact_seating_label: "Aforament", fact_seating_value: "34 comensals, 8 a la barra",
+      services_eyebrow: "Què oferim",
+      services_title: "Quatre maneres d'asseure't vora el nostre foc.",
+      services_subtitle: "Cada servei gira entorn de la mateixa graella — com el visquis depèn de tu.",
+      service1_title: "Menú Degustació",
+      service1_desc: "Un recorregut de dotze plats pel foc viu, des d'obertures crues i curades fins a principals rostits a la brasa i un darrer plat cuinat a taula.",
+      service1_meta: "12 plats · 3 h · des de 135 €",
+      service2_title: "Maridatge de Vins",
+      service2_desc: "El nostre sommelier marida cada plat amb petits productors del Priorat, l'Empordà i les Illes Canàries — natural quan convé al plat, clàssic quan no.",
+      service2_meta: "6–12 copes · des de 65 €",
+      service3_title: "Menjador Privat",
+      service3_desc: "Una sala interior de pedra acull fins a catorze comensals al voltant d'una sola taula, amb servei propi i un menú construït entorn del foc de la teva taula.",
+      service3_meta: "Fins a 14 persones · sota petició",
+      service4_title: "Terrassa i Bar",
+      service4_desc: "Aperitius, vermut i petits plats a la brasa a la nostra terrassa ombrejada, al costat del carrer de l'Argenteria — sense reserva, per estricte ordre d'arribada.",
+      service4_meta: "Sense reserva · de migdia fins tard",
+      contact_eyebrow: "Visita'ns", contact_title: "Troba la teva taula.",
+      contact_subtitle: "Al casc antic, a dos minuts de la Plaça de l'Àngel.",
+      contact_address_label: "Adreça", contact_address_value: "Carrer de l'Argenteria 24, 08003 Barcelona",
+      contact_hours_label: "Horari", contact_hours_value: "Dm – Ds, 13:00–16:00 i 20:00–23:30 · Tancat Dg–Dl",
+      contact_phone_label: "Telèfon", contact_email_label: "Correu",
+      form_name_label: "Nom", form_email_label: "Correu", form_date_label: "Data",
+      form_guests_label: "Comensals", form_guests_placeholder: "Selecciona",
+      form_message_label: "Missatge (opcional)", form_message_placeholder: "Al·lèrgies, celebracions o peticions per a la cuina",
+      form_submit: "Envia la sol·licitud", form_sending: "Enviant…",
+      form_error_name: "Si us plau, escriu el teu nom.",
+      form_error_email: "Si us plau, introdueix un correu vàlid.",
+      form_error_date: "Si us plau, tria una data.",
+      form_error_guests: "Si us plau, selecciona el nombre de comensals.",
+      form_error_generic: "Revisa els camps marcats.",
+      form_success_prefix: "Gràcies, ", form_success_suffix: ". Confirmarem la teva taula per correu en breu.",
+      footer_copy: "© {year} Restaurant Cendra · Barcelona"
+    },
+    en: {
+      title_tag: "Cendra — Fire & Sea, Barcelona",
+      meta_description: "Cendra is a fine-dining restaurant in the Gothic Quarter of Barcelona, built around live-fire cooking and Mediterranean produce.",
+      nav_about: "About", nav_services: "Services", nav_menu: "Menu", nav_contact: "Contact", nav_reserve: "Reserve a table",
+      nav_toggle_aria: "Open menu", mobile_home: "Home",
+      menu_eyebrow: "Our Menu",
+      menu_title: "A menu written by the fire.",
+      menu_subtitle: "Dishes that change with the market, but always pass through the embers.",
+      menu_note: "The menu changes with the market and the season; these dishes are an example of what we prepare.",
+      cat_starters: "To Start", cat_mains: "From the Grill", cat_desserts: "Desserts",
+      dish1_name: "Acorn-Fed Iberian Ham", dish1_desc: "Hand-carved, 100% acorn-fed Iberian ham with glass bread.", dish1_price: "€26",
+      dish2_name: "Red Tuna Tartare", dish2_desc: "Almadraba red tuna, avocado, black sesame and soy.", dish2_price: "€19",
+      dish3_name: "Charcoal-Grilled Octopus", dish3_desc: "Galician octopus over charcoal with smoked potato purée and La Vera paprika.", dish3_price: "€24",
+      dish4_name: "Dry-Aged Ribeye", dish4_desc: "45-day dry-aged beef over holm oak embers, to share. With Padrón peppers.", dish4_price: "€68 (for 2)",
+      dish5_name: "Grilled Wild Turbot", dish5_desc: "Wild Cantabrian turbot over the grill with parsley oil and lemon.", dish5_price: "€32",
+      dish6_name: "Burnt Crema Catalana", dish6_desc: "Traditional recipe, caramelized tableside.", dish6_price: "€9",
+      hero_eyebrow: "Gothic Quarter · Barcelona · Established 2016",
+      hero_title_html: "Cendra<br><em>fire &amp; sea,</em> remembered",
+      hero_lede: "A live-fire kitchen in the heart of the Gothic Quarter, built on Boqueria produce, Catalan technique and the quiet theatre of an open grill.",
+      hero_cta_reserve: "Reserve a table", hero_cta_services: "View services", scroll_cue: "Scroll",
+      about_eyebrow: "About Cendra",
+      about_p1_html: "Cendra means <em>ash</em> — what's left once the fire has done its work, and where we think the best flavour lives.",
+      about_p2: "Chef Martina Roig trained across grills in Girona and Buenos Aires before returning to Barcelona to open a kitchen with no gas burners at all: everything is cooked over holm oak charcoal, vine cuttings, or dying embers, the way her grandmother cooked in the Empordà.",
+      about_p3: "Produce arrives each morning from the Boqueria and the fishing port of Barceloneta. The menu changes with the boats and the season, never with a trend.",
+      about_panel_caption: "Open kitchen · Charcoal grill · Est. 2016",
+      fact_chef_label: "Chef", fact_chef_value: "Martina Roig",
+      fact_kitchen_label: "Kitchen", fact_kitchen_value: "Wood & charcoal fire, no gas",
+      fact_sourcing_label: "Sourcing", fact_sourcing_value: "Boqueria market & Barceloneta port",
+      fact_seating_label: "Seating", fact_seating_value: "34 covers, 8 at the counter",
+      services_eyebrow: "What we offer",
+      services_title: "Four ways to sit at our fire.",
+      services_subtitle: "Every service is built around the same grill — how you experience it is up to you.",
+      service1_title: "Tasting Menu",
+      service1_desc: "A twelve-course journey through the live fire, from raw and cured openings to embers-roasted mains and a final course cooked tableside.",
+      service1_meta: "12 courses · 3 hrs · from €135",
+      service2_title: "Wine Pairing",
+      service2_desc: "Our sommelier pairs each course with small producers from Priorat, Empordà and the Canary Islands — natural where it serves the plate, classic where it doesn't.",
+      service2_meta: "6–12 glasses · from €65",
+      service3_title: "Private Dining",
+      service3_desc: "A stone-walled back room seats up to fourteen around a single table, with its own service and a menu built around your table's own fire.",
+      service3_meta: "Up to 14 guests · by request",
+      service4_title: "Terrace & Bar",
+      service4_desc: "Snacks, vermouth and grilled small plates on our shaded terrace off Carrer de l'Argenteria — no reservation required, first come first served.",
+      service4_meta: "Walk-in · noon till late",
+      contact_eyebrow: "Visit us", contact_title: "Find your table.",
+      contact_subtitle: "In the old city, two minutes from Plaça de l'Àngel.",
+      contact_address_label: "Address", contact_address_value: "Carrer de l'Argenteria 24, 08003 Barcelona",
+      contact_hours_label: "Hours", contact_hours_value: "Tue – Sat, 13:00–16:00 & 20:00–23:30 · Closed Sun–Mon",
+      contact_phone_label: "Phone", contact_email_label: "Email",
+      form_name_label: "Name", form_email_label: "Email", form_date_label: "Date",
+      form_guests_label: "Guests", form_guests_placeholder: "Select",
+      form_message_label: "Message (optional)", form_message_placeholder: "Allergies, occasions, or requests for the kitchen",
+      form_submit: "Send request", form_sending: "Sending…",
+      form_error_name: "Please enter your name.",
+      form_error_email: "Please enter a valid email.",
+      form_error_date: "Please choose a date.",
+      form_error_guests: "Please select a party size.",
+      form_error_generic: "Please check the highlighted fields.",
+      form_success_prefix: "Thank you, ", form_success_suffix: ". We will confirm your table by email shortly.",
+      footer_copy: "© {year} Cendra Restaurant · Barcelona"
+    },
+    fr: {
+      title_tag: "Cendra — Feu et Mer, Barcelone",
+      meta_description: "Cendra est un restaurant gastronomique du Quartier Gothique de Barcelone, construit autour de la cuisine au feu vif et des produits méditerranéens.",
+      nav_about: "À propos", nav_services: "Services", nav_menu: "Carte", nav_contact: "Contact", nav_reserve: "Réserver une table",
+      nav_toggle_aria: "Ouvrir le menu", mobile_home: "Accueil",
+      menu_eyebrow: "Notre carte",
+      menu_title: "Une carte écrite par le feu.",
+      menu_subtitle: "Des plats qui changent avec le marché, mais qui passent toujours par la braise.",
+      menu_note: "La carte évolue selon le marché et la saison ; ces plats sont un exemple de ce que nous préparons.",
+      cat_starters: "Pour commencer", cat_mains: "À la braise", cat_desserts: "Desserts",
+      dish1_name: "Jambon ibérique de bellota", dish1_desc: "Coupé au couteau, 100% ibérique de bellota, avec pain de verre.", dish1_price: "26 €",
+      dish2_name: "Tartare de thon rouge", dish2_desc: "Thon rouge d'almadraba, avocat, sésame noir et soja.", dish2_price: "19 €",
+      dish3_name: "Poulpe grillé au charbon", dish3_desc: "Poulpe galicien grillé au charbon avec purée de pomme de terre fumée et paprika de la Vera.", dish3_price: "24 €",
+      dish4_name: "Côte de bœuf maturée", dish4_desc: "Bœuf maturé 45 jours sur braise de chêne vert, à partager. Avec piments de Padrón.", dish4_price: "68 € (pour 2)",
+      dish5_name: "Turbot sauvage grillé", dish5_desc: "Turbot sauvage de Cantabrie grillé avec huile de persil et citron.", dish5_price: "32 €",
+      dish6_name: "Crema catalana brûlée", dish6_desc: "Recette traditionnelle, caramélisée à table.", dish6_price: "9 €",
+      hero_eyebrow: "Quartier Gothique · Barcelone · Fondé en 2016",
+      hero_title_html: "Cendra<br><em>feu et mer,</em> en mémoire",
+      hero_lede: "Une cuisine au feu vif au cœur du Quartier Gothique, construite avec les produits de la Boqueria, la technique catalane et le théâtre silencieux d'un grill ouvert.",
+      hero_cta_reserve: "Réserver une table", hero_cta_services: "Voir les services", scroll_cue: "Défiler",
+      about_eyebrow: "À propos de Cendra",
+      about_p1_html: "Cendra signifie <em>cendre</em> — ce qui reste une fois que le feu a fait son travail, et où selon nous vit la meilleure saveur.",
+      about_p2: "La cheffe Martina Roig s'est formée sur des grills à Gérone et à Buenos Aires avant de revenir à Barcelone pour ouvrir une cuisine sans le moindre brûleur à gaz : tout est cuit sur charbon de chêne vert, sarments de vigne ou braises mourantes, comme le faisait sa grand-mère dans l'Empordà.",
+      about_p3: "Les produits arrivent chaque matin de la Boqueria et du port de pêche de la Barceloneta. La carte change avec les bateaux et les saisons, jamais avec les tendances.",
+      about_panel_caption: "Cuisine ouverte · Grill au charbon · Fondé en 2016",
+      fact_chef_label: "Chef", fact_chef_value: "Martina Roig",
+      fact_kitchen_label: "Cuisine", fact_kitchen_value: "Feu de bois et de charbon, sans gaz",
+      fact_sourcing_label: "Provenance", fact_sourcing_value: "Marché de la Boqueria et port de la Barceloneta",
+      fact_seating_label: "Places", fact_seating_value: "34 couverts, 8 au comptoir",
+      services_eyebrow: "Ce que nous proposons",
+      services_title: "Quatre façons de vous asseoir près de notre feu.",
+      services_subtitle: "Chaque service tourne autour du même grill — la façon dont vous le vivez ne dépend que de vous.",
+      service1_title: "Menu Dégustation",
+      service1_desc: "Un parcours en douze plats autour du feu vif, des entrées crues et marinées aux plats principaux rôtis aux braises, jusqu'à un dernier plat cuisiné à table.",
+      service1_meta: "12 plats · 3 h · à partir de 135 €",
+      service2_title: "Accord Mets-Vins",
+      service2_desc: "Notre sommelier accorde chaque plat avec de petits producteurs du Priorat, de l'Empordà et des îles Canaries — naturel quand cela sert le plat, classique sinon.",
+      service2_meta: "6–12 verres · à partir de 65 €",
+      service3_title: "Salle Privée",
+      service3_desc: "Une salle intérieure en pierre accueille jusqu'à quatorze convives autour d'une seule table, avec son propre service et un menu construit autour du feu de votre table.",
+      service3_meta: "Jusqu'à 14 personnes · sur demande",
+      service4_title: "Terrasse et Bar",
+      service4_desc: "Tapas, vermouth et petits plats grillés sur notre terrasse ombragée, près de la Carrer de l'Argenteria — sans réservation, dans l'ordre d'arrivée.",
+      service4_meta: "Sans réservation · de midi jusque tard",
+      contact_eyebrow: "Venez nous voir", contact_title: "Trouvez votre table.",
+      contact_subtitle: "Dans la vieille ville, à deux minutes de la Plaça de l'Àngel.",
+      contact_address_label: "Adresse", contact_address_value: "Carrer de l'Argenteria 24, 08003 Barcelone",
+      contact_hours_label: "Horaires", contact_hours_value: "Mar – Sam, 13h00–16h00 et 20h00–23h30 · Fermé Dim–Lun",
+      contact_phone_label: "Téléphone", contact_email_label: "E-mail",
+      form_name_label: "Nom", form_email_label: "E-mail", form_date_label: "Date",
+      form_guests_label: "Convives", form_guests_placeholder: "Choisir",
+      form_message_label: "Message (facultatif)", form_message_placeholder: "Allergies, occasions ou demandes pour la cuisine",
+      form_submit: "Envoyer la demande", form_sending: "Envoi en cours…",
+      form_error_name: "Veuillez indiquer votre nom.",
+      form_error_email: "Veuillez indiquer un e-mail valide.",
+      form_error_date: "Veuillez choisir une date.",
+      form_error_guests: "Veuillez sélectionner le nombre de convives.",
+      form_error_generic: "Veuillez vérifier les champs signalés.",
+      form_success_prefix: "Merci, ", form_success_suffix: ". Nous confirmerons votre table par e-mail sous peu.",
+      footer_copy: "© {year} Restaurant Cendra · Barcelone"
+    }
+  };
+
+  var currentLang = 'es';
+  var currentYear = new Date().getFullYear();
+
+  function applyLanguage(lang){
+    if(!translations[lang]) return;
+    currentLang = lang;
+    var dict = translations[lang];
+
+    document.documentElement.lang = lang;
+    document.title = dict.title_tag;
+    var metaDesc = document.querySelector('meta[name="description"]');
+    if(metaDesc) metaDesc.setAttribute('content', dict.meta_description);
+
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      if(dict[key] !== undefined){
+        if(key === 'footer_copy'){
+          el.innerHTML = dict[key].replace('{year}', '<span id="year">' + currentYear + '</span>');
+        } else {
+          el.textContent = dict[key];
+        }
+      }
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+      var key = el.getAttribute('data-i18n-html');
+      if(dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
+      var key = el.getAttribute('data-i18n-placeholder');
+      if(dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){
+      var key = el.getAttribute('data-i18n-aria');
+      if(dict[key] !== undefined) el.setAttribute('aria-label', dict[key]);
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(function(btn){
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    // clear any inline validation state / status message on language change
+    document.querySelectorAll('.field.error').forEach(function(f){ f.classList.remove('error'); });
+    var status = document.getElementById('formStatus');
+    if(status) status.textContent = '';
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){ applyLanguage(btn.getAttribute('data-lang')); });
+  });
+
+  /* ---------- header scroll state ---------- */
+  var header = document.getElementById('siteHeader');
+  var onScroll = function(){
+    if(window.scrollY > 40){ header.classList.add('scrolled'); }
+    else{ header.classList.remove('scrolled'); }
+  };
+  document.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  /* ---------- mobile nav ---------- */
+  var toggle = document.getElementById('navToggle');
+  var mobileNav = document.getElementById('mobileNav');
+  toggle.addEventListener('click', function(){
+    var isOpen = mobileNav.classList.toggle('open');
+    toggle.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  mobileNav.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      mobileNav.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* ---------- scroll reveal ---------- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.15 });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('visible'); });
+  }
+
+  /* ---------- seeded PRNG (deterministic mosaic + embers) ---------- */
+  function makeRng(seed){
+    var s = seed >>> 0;
+    return function(){
+      s = (s * 1664525 + 1013904223) >>> 0;
+      return s / 4294967296;
+    };
+  }
+
+  /* ---------- trencadís shard divider generator ---------- */
+  var SHARD_PALETTES = {
+    default:  ['#b8925a', '#1f4e49', '#f3eee3', '#12181a'],
+    onPaper:  ['#b8925a', '#1f4e49', '#12181a', '#e9e2d3'],
+    onTeal:   ['#b8925a', '#f3eee3', '#0e2a27', '#d8b98a']
+  };
+
+  function buildShardDivider(containerId, paletteKey, seed){
+    var container = document.getElementById(containerId);
+    if(!container) return;
+    var w = 1200, h = 46;
+    var rng = makeRng(seed);
+    var palette = SHARD_PALETTES[paletteKey] || SHARD_PALETTES.default;
+    var svgNS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    svg.setAttribute('preserveAspectRatio', 'none');
+
+    var x = -20;
+    while(x < w + 20){
+      var shardW = 26 + rng() * 46;
+      var shardH = h * (0.45 + rng() * 0.7);
+      var yBase = (h - shardH) / 2 + (rng() - 0.5) * 10;
+      var tilt = (rng() - 0.5) * 14;
+      var color = palette[Math.floor(rng() * palette.length)];
+      var gap = 2 + rng() * 3;
+
+      var x0 = x, x1 = x + shardW;
+      var jitterTop = rng() * 6;
+      var jitterBot = rng() * 6;
+      var points = [
+        [x0 + jitterTop, yBase],
+        [x1 - jitterTop*0.6, yBase + tilt*0.2],
+        [x1 + jitterBot*0.4, yBase + shardH],
+        [x0 - jitterBot*0.3, yBase + shardH - tilt*0.2]
+      ].map(function(p){ return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+
+      var poly = document.createElementNS(svgNS, 'polygon');
+      poly.setAttribute('points', points);
+      poly.setAttribute('fill', color);
+      poly.setAttribute('opacity', (0.85 + rng()*0.15).toFixed(2));
+      svg.appendChild(poly);
+
+      x += shardW + gap;
+    }
+    container.appendChild(svg);
+  }
+
+  buildShardDivider('divider1', 'default', 11);
+  buildShardDivider('divider2', 'onPaper', 42);
+  buildShardDivider('dividerMenu', 'onPaper', 58);
+  buildShardDivider('divider3', 'onTeal', 77);
+
+  /* ---------- abstract map lines ---------- */
+  (function buildMap(){
+    var el = document.getElementById('mapAbstract');
+    if(!el) return;
+    var rng = makeRng(5);
+    var svgNS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 400 150');
+    svg.setAttribute('preserveAspectRatio', 'none');
+
+    for(var i = 0; i < 6; i++){
+      var y = 15 + i * 22 + (rng()-0.5)*8;
+      var path = document.createElementNS(svgNS, 'path');
+      var d = 'M -10 ' + y.toFixed(1);
+      var cx = 40;
+      while(cx < 420){
+        var ny = y + (rng()-0.5) * 18;
+        d += ' L ' + cx.toFixed(1) + ' ' + ny.toFixed(1);
+        cx += 40 + rng()*30;
+      }
+      path.setAttribute('d', d);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', 'rgba(243,238,227,' + (0.08 + (i%2)*0.05) + ')');
+      path.setAttribute('stroke-width', '1');
+      svg.appendChild(path);
+    }
+    var pin = document.createElementNS(svgNS, 'circle');
+    pin.setAttribute('cx', '210'); pin.setAttribute('cy', '70'); pin.setAttribute('r', '5');
+    pin.setAttribute('fill', '#d8b98a');
+    svg.appendChild(pin);
+    var ring = document.createElementNS(svgNS, 'circle');
+    ring.setAttribute('cx', '210'); ring.setAttribute('cy', '70'); ring.setAttribute('r', '11');
+    ring.setAttribute('fill', 'none'); ring.setAttribute('stroke', '#d8b98a'); ring.setAttribute('stroke-width','1');
+    ring.setAttribute('opacity', '0.6');
+    svg.appendChild(ring);
+
+    el.appendChild(svg);
+  })();
+
+  /* ---------- ambient ember canvas in hero ---------- */
+  (function ambientCanvas(){
+    var canvas = document.getElementById('emberCanvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var rng = makeRng(99);
+    var particles = [];
+    var count = 26;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function resize(){
+      canvas.width = canvas.offsetWidth * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+    }
+
+    function init(){
+      resize();
+      particles = [];
+      for(var i = 0; i < count; i++){
+        particles.push({
+          x: rng() * canvas.width,
+          y: rng() * canvas.height,
+          r: (canvas.width * 0.008) * (0.5 + rng()*1.4),
+          speedX: (rng() - 0.5) * 0.12,
+          speedY: -0.06 - rng() * 0.18,
+          drift: rng() * Math.PI * 2,
+          opacity: 0.12 + rng() * 0.22
+        });
+      }
+    }
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function tick(){
+      ctx.clearRect(0,0,canvas.width, canvas.height);
+      particles.forEach(function(p){
+        p.drift += 0.004;
+        p.x += p.speedX + Math.sin(p.drift) * 0.15;
+        p.y += p.speedY;
+        if(p.y < -20){ p.y = canvas.height + 20; p.x = rng() * canvas.width; }
+        if(p.x < -20) p.x = canvas.width + 20;
+        if(p.x > canvas.width + 20) p.x = -20;
+
+        var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
+        grad.addColorStop(0, 'rgba(216,185,138,' + p.opacity + ')');
+        grad.addColorStop(1, 'rgba(216,185,138,0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * 6, 0, Math.PI*2);
+        ctx.fill();
+      });
+      if(!reduceMotion){ requestAnimationFrame(tick); }
+    }
+
+    init();
+    window.addEventListener('resize', function(){ init(); }, { passive:true });
+    tick();
+    if(reduceMotion){ tick(); }
+  })();
+
+  /* ---------- reservation form ---------- */
+  var form = document.getElementById('reserveForm');
+  var status = document.getElementById('formStatus');
+
+  function setError(fieldEl, hasError){
+    var wrap = fieldEl.closest('.field');
+    if(wrap) wrap.classList.toggle('error', hasError);
+  }
+
+  function validEmail(v){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var dict = translations[currentLang];
+    var name = document.getElementById('fname');
+    var email = document.getElementById('femail');
+    var date = document.getElementById('fdate');
+    var guests = document.getElementById('fguests');
+
+    var valid = true;
+    [name, email, date, guests].forEach(function(f){ setError(f, false); });
+
+    if(!name.value.trim()){ setError(name, true); valid = false; }
+    if(!email.value.trim() || !validEmail(email.value.trim())){ setError(email, true); valid = false; }
+    if(!date.value){ setError(date, true); valid = false; }
+    if(!guests.value){ setError(guests, true); valid = false; }
+
+    if(!valid){
+      status.textContent = dict.form_error_generic;
+      status.style.color = '#e0a08f';
+      return;
+    }
+
+    var submitBtn = form.querySelector('.form-submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = dict.form_sending;
+    status.style.color = '#d8b98a';
+    status.textContent = '';
+
+    var msgEl = document.getElementById('fmsg');
+    var firstName = name.value.trim().split(' ')[0];
+
+    // ------------------------------------------------------------------
+    // FORMSPREE — sends the reservation straight to the restaurant inbox,
+    // fully automatic, no mail app / user action needed.
+    //
+    // Uses Formspree's email-endpoint shortcut, so no account signup is
+    // required. The FIRST time this form is ever submitted, Formspree
+    // sends a one-time confirmation email to albertgonzalez985@gmail.com —
+    // someone needs to open it and click "Confirm" once. After that,
+    // every reservation is delivered to that inbox automatically.
+    // ------------------------------------------------------------------
+    var FORM_ENDPOINT = 'https://formspree.io/albertgonzalez985@gmail.com';
+
+    var formData = new FormData(form);
+    formData.set('_subject', 'Reserva Cendra — ' + name.value.trim() + ' (' + date.value + ')');
+
+    fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(response){
+      if(response.ok){
+        status.style.color = '#d8b98a';
+        status.textContent = dict.form_success_prefix + firstName + dict.form_success_suffix;
+        form.reset();
+      } else {
+        return response.json().then(function(data){
+          var msg = (data && data.errors) ? data.errors.map(function(er){ return er.message; }).join(', ') : dict.form_error_generic;
+          throw new Error(msg);
+        });
+      }
+    })
+    .catch(function(){
+      status.style.color = '#e0a08f';
+      status.textContent = dict.form_error_generic;
+    })
+    .then(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = dict.form_submit;
+    });
+  });
+
+  /* ---------- init ---------- */
+  applyLanguage('es');
+
+})();
+</script>
+</body>
+</html>

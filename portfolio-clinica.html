@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonrisa365 · Clínica Dental — Pide tu cita hoy</title>
+<meta name="description" content="Sonrisa365, clínica dental ficticia de ejemplo. Servicios, presupuesto online, chatbot y cita en minutos.">
+<style>
+/* ============ RESET & BASE ============ */
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blue-dark:#0b2545;
+  --blue:#1d6fe0;
+  --blue-light:#e8f1ff;
+  --teal:#12b8a6;
+  --teal-dark:#0e9488;
+  --gray-900:#101828;
+  --gray-600:#475467;
+  --gray-300:#d0d5dd;
+  --gray-100:#f2f4f7;
+  --white:#ffffff;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(11,37,69,0.08);
+  --shadow-lg:0 20px 50px rgba(11,37,69,0.14);
+  font-size:16px;
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  color:var(--gray-900);
+  background:var(--white);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+button{font-family:inherit;cursor:pointer;border:none;}
+input,select,textarea{font-family:inherit;font-size:1rem;}
+.container{max-width:1180px;margin:0 auto;padding:0 24px;}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+/* ============ REVEAL ANIMATION ============ */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;transition-delay:var(--delay,0s);}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:999px;font-weight:600;font-size:.95rem;transition:.25s ease;white-space:nowrap;}
+.btn-primary{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;box-shadow:0 8px 20px rgba(18,184,166,.35);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(18,184,166,.45);}
+.btn-outline{background:#fff;border:2px solid var(--blue-dark);color:var(--blue-dark);}
+.btn-outline:hover{background:var(--blue-dark);color:#fff;transform:translateY(-3px);}
+.btn-white{background:#fff;color:var(--blue-dark);}
+.btn-white:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.15);}
+.btn-block{width:100%;justify-content:center;}
+.btn-sm{padding:9px 18px;font-size:.85rem;}
+
+/* ============ TOP PROMO BAR ============ */
+.promo-bar{background:var(--blue-dark);color:#fff;text-align:center;font-size:.85rem;font-weight:600;padding:8px 16px;letter-spacing:.2px;}
+.promo-bar span{color:#5ee6d3;}
+
+/* ============ NAVBAR ============ */
+.navbar{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--gray-100);transition:box-shadow .3s;}
+.navbar.scrolled{box-shadow:0 4px 20px rgba(11,37,69,.08);}
+.navbar-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.25rem;color:var(--blue-dark);}
+.logo .dot{color:var(--teal);}
+.nav-links{display:flex;gap:28px;font-weight:600;font-size:.92rem;color:var(--gray-600);}
+.nav-links a:hover{color:var(--teal-dark);}
+.navbar-actions{display:flex;align-items:center;gap:14px;}
+.menu-toggle{display:none;flex-direction:column;gap:5px;background:none;padding:6px;}
+.menu-toggle span{width:24px;height:2.5px;background:var(--blue-dark);border-radius:2px;transition:.3s;}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:90px 0 70px;background:radial-gradient(circle at 80% 20%,#eaf6f4 0%,#ffffff 55%);overflow:hidden;}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;}
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--blue-light);color:var(--blue);font-weight:700;font-size:.78rem;padding:7px 14px;border-radius:999px;margin-bottom:18px;}
+.hero h1{font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1.12;color:var(--blue-dark);font-weight:800;margin-bottom:18px;}
+.hero h1 .accent{color:var(--teal-dark);}
+.hero p.lead{font-size:1.08rem;color:var(--gray-600);max-width:520px;margin-bottom:28px;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px;}
+.hero-trust{display:flex;align-items:center;gap:14px;font-size:.85rem;color:var(--gray-600);}
+.stars-mini{color:#f5a623;letter-spacing:1px;}
+.hero-media{position:relative;}
+.hero-media .img-box{border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:4/5;background:linear-gradient(135deg,#cfe8ff,#e8fff8);display:flex;align-items:center;justify-content:center;color:var(--blue);font-weight:700;text-align:center;padding:20px;}
+/* IMAGEN: sustituir por foto real de clínica/paciente sonriendo, 800x1000px */
+.float-chip{position:absolute;background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:12px 16px;display:flex;align-items:center;gap:10px;font-size:.82rem;font-weight:700;animation:floatY 4s ease-in-out infinite;}
+.float-chip .ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.chip-1{top:10%;left:-30px;background:#fff;}
+.chip-1 .ic{background:#e6fbf7;color:var(--teal-dark);}
+.chip-2{bottom:8%;right:-24px;animation-delay:.6s;}
+.chip-2 .ic{background:var(--blue-light);color:var(--blue);}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+
+/* ============ STATS BAR ============ */
+.stats-bar{background:var(--blue-dark);padding:36px 0;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;color:#fff;}
+.stats-grid strong{display:block;font-size:2rem;font-weight:800;color:#5ee6d3;}
+.stats-grid span{font-size:.85rem;color:#c9d8ef;}
+
+/* ============ SECTION GENERIC ============ */
+.section{padding:90px 0;}
+.section-head{text-align:center;max-width:640px;margin:0 auto 50px;}
+.eyebrow{display:inline-block;color:var(--teal-dark);font-weight:800;font-size:.8rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.section-head h2{font-size:clamp(1.7rem,3vw,2.4rem);color:var(--blue-dark);font-weight:800;margin-bottom:12px;}
+.section-head p{color:var(--gray-600);}
+.bg-soft{background:var(--gray-100);}
+
+/* ============ SERVICES ============ */
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.service-card{background:#fff;border:1px solid var(--gray-100);border-radius:var(--radius);padding:30px 24px;box-shadow:var(--shadow);transition:.3s;position:relative;}
+.service-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:transparent;}
+.service-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--blue-light),#d7f7f0);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:16px;}
+.service-card h3{font-size:1.08rem;margin-bottom:8px;color:var(--blue-dark);}
+.service-card p{font-size:.88rem;color:var(--gray-600);margin-bottom:14px;min-height:64px;}
+.service-price{font-weight:800;color:var(--teal-dark);font-size:1.05rem;margin-bottom:14px;}
+.service-price small{color:var(--gray-600);font-weight:500;font-size:.75rem;}
+.service-card .btn{width:100%;justify-content:center;}
+
+/* ============ QUOTE GENERATOR ============ */
+.quote-section{background:linear-gradient(160deg,var(--blue-dark),#123a6b);color:#fff;position:relative;overflow:hidden;}
+.quote-section .section-head h2, .quote-section .eyebrow{color:#fff;}
+.quote-section .eyebrow{color:#5ee6d3;}
+.quote-section .section-head p{color:#c9d8ef;}
+.quote-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:36px;backdrop-filter:blur(6px);}
+.quote-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.quote-opt{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px;cursor:pointer;transition:.2s;font-size:.9rem;}
+.quote-opt:hover{background:rgba(255,255,255,.14);}
+.quote-opt input{accent-color:var(--teal);width:18px;height:18px;flex-shrink:0;}
+.quote-opt .qname{font-weight:700;display:block;}
+.quote-opt .qprice{font-size:.78rem;color:#9fd6ff;}
+.quote-summary{background:#fff;color:var(--gray-900);border-radius:18px;padding:26px;display:flex;flex-direction:column;}
+.quote-summary h3{color:var(--blue-dark);margin-bottom:14px;font-size:1.1rem;}
+#quoteList{flex:1;margin-bottom:14px;font-size:.88rem;}
+#quoteList li{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--gray-300);}
+#quoteList .empty{color:var(--gray-600);border:none;}
+.quote-total{display:flex;justify-content:space-between;align-items:baseline;font-weight:800;font-size:1.3rem;color:var(--blue-dark);padding:14px 0;border-top:2px solid var(--gray-100);margin-bottom:16px;}
+.quote-total small{font-size:.75rem;font-weight:500;color:var(--gray-600);}
+
+/* ============ PROCESS ============ */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.process-card{text-align:center;position:relative;}
+.process-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;font-weight:800;font-size:1.2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 8px 18px rgba(18,184,166,.35);}
+.process-card h3{color:var(--blue-dark);margin-bottom:8px;font-size:1.05rem;}
+.process-card p{font-size:.88rem;color:var(--gray-600);}
+
+/* ============ TESTIMONIALS ============ */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.testi-card{background:#fff;border:1px solid var(--gray-100);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);}
+.testi-card .stars{color:#f5a623;margin-bottom:10px;letter-spacing:2px;}
+.testi-card p{font-size:.92rem;color:var(--gray-600);margin-bottom:16px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:10px;}
+.testi-avatar{width:38px;height:38px;border-radius:50%;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;}
+.testi-author strong{display:block;font-size:.88rem;color:var(--blue-dark);}
+.testi-author span{font-size:.76rem;color:var(--gray-600);}
+
+/* ============ TEAM ============ */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.team-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);text-align:center;transition:.3s;}
+.team-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);}
+.team-photo{aspect-ratio:1/1;background:linear-gradient(135deg,#e8f1ff,#e6fbf7);display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--blue);}
+/* IMAGEN: retrato profesional del especialista, fondo neutro */
+.team-card-body{padding:18px;}
+.team-card-body h3{font-size:1rem;color:var(--blue-dark);margin-bottom:4px;}
+.team-card-body span{font-size:.78rem;color:var(--teal-dark);font-weight:700;}
+
+/* ============ FAQ ============ */
+.faq-list{max-width:760px;margin:0 auto;}
+.faq-item{border-bottom:1px solid var(--gray-300);}
+.faq-q{width:100%;background:none;text-align:left;padding:18px 4px;display:flex;justify-content:space-between;align-items:center;font-weight:700;color:var(--blue-dark);font-size:.98rem;}
+.faq-q .plus{font-size:1.3rem;color:var(--teal-dark);transition:.3s;flex-shrink:0;margin-left:14px;}
+.faq-item.open .plus{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.faq-a p{padding:0 4px 18px;color:var(--gray-600);font-size:.9rem;}
+
+/* ============ CONTACT ============ */
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;}
+.contact-info h2{color:var(--blue-dark);font-size:1.8rem;margin-bottom:14px;}
+.contact-info p{color:var(--gray-600);margin-bottom:22px;}
+.contact-list li{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px;font-size:.92rem;color:var(--gray-900);}
+.contact-list .ic{width:38px;height:38px;border-radius:10px;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.fake-map{margin-top:20px;border-radius:16px;overflow:hidden;position:relative;box-shadow:var(--shadow);}
+.contact-form{background:#fff;border:1px solid var(--gray-100);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:.85rem;font-weight:700;color:var(--blue-dark);margin-bottom:6px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 14px;border:1.5px solid var(--gray-300);border-radius:10px;transition:.2s;background:#fbfcfe;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--teal);background:#fff;}
+.error-msg{color:#e5484d;font-size:.76rem;display:block;margin-top:4px;min-height:14px;}
+.field-error input,.field-error select,.field-error textarea{border-color:#e5484d;}
+
+/* ============ CTA FINAL ============ */
+.cta-final{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;text-align:center;border-radius:28px;margin:0 24px;padding:60px 24px;}
+.cta-final h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:12px;}
+.cta-final p{opacity:.92;margin-bottom:26px;}
+
+/* ============ FOOTER ============ */
+.footer{background:var(--blue-dark);color:#c9d8ef;padding:60px 0 24px;margin-top:60px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;margin-bottom:40px;}
+.footer-brand .logo{color:#fff;margin-bottom:12px;}
+.footer-brand p{font-size:.85rem;color:#9fb2cf;}
+.footer-col h4{color:#fff;font-size:.9rem;margin-bottom:14px;}
+.footer-col a{display:block;font-size:.85rem;color:#9fb2cf;margin-bottom:10px;}
+.footer-col a:hover{color:#5ee6d3;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;text-align:center;font-size:.78rem;color:#7f96bb;}
+
+/* ============ FLOATING BUTTONS ============ */
+.fab-stack{position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:12px;z-index:300;align-items:flex-end;}
+.fab{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 10px 24px rgba(0,0,0,.2);transition:.25s;}
+.fab:hover{transform:scale(1.08);}
+.fab-chat{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;}
+.fab-whatsapp{background:#25D366;color:#fff;}
+.fab-top{background:#fff;color:var(--blue-dark);border:1.5px solid var(--gray-300);width:46px;height:46px;font-size:1.1rem;opacity:0;pointer-events:none;transform:translateY(10px);}
+.fab-top.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+
+/* ============ CHATBOT WIDGET ============ */
+.chat-window{position:fixed;bottom:96px;right:24px;width:340px;max-width:88vw;height:440px;background:#fff;border-radius:20px;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;overflow:hidden;z-index:301;opacity:0;transform:translateY(20px) scale(.97);pointer-events:none;transition:.28s ease;}
+.chat-window.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+.chat-head{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;}
+.chat-head .av{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.chat-head strong{display:block;font-size:.9rem;}
+.chat-head span{font-size:.72rem;color:#bfe0ff;display:flex;align-items:center;gap:5px;}
+.chat-head span i{width:7px;height:7px;background:#5ee6d3;border-radius:50%;display:inline-block;}
+.chat-close{margin-left:auto;background:none;color:#fff;font-size:1.2rem;opacity:.8;}
+.chat-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#f7f9fc;}
+.msg{max-width:82%;padding:10px 13px;border-radius:14px;font-size:.85rem;line-height:1.45;}
+.msg-bot{background:#fff;border:1px solid var(--gray-100);align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 2px 6px rgba(0,0,0,.04);}
+.msg-user{background:var(--blue);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
+.typing{display:flex;gap:4px;padding:12px 14px;background:#fff;border:1px solid var(--gray-100);border-radius:14px;align-self:flex-start;width:fit-content;}
+.typing span{width:6px;height:6px;background:var(--gray-600);border-radius:50%;animation:blink 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:.2s;}
+.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.3;}40%{opacity:1;}}
+.chat-suggestions{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 10px;}
+.chip-sm{background:var(--blue-light);color:var(--blue);border-radius:999px;padding:6px 11px;font-size:.72rem;font-weight:700;}
+.chip-sm:hover{background:var(--blue);color:#fff;}
+.chat-input-row{display:flex;border-top:1px solid var(--gray-100);padding:10px;gap:8px;}
+.chat-input-row input{flex:1;border:1.5px solid var(--gray-300);border-radius:999px;padding:9px 14px;font-size:.85rem;}
+.chat-input-row input:focus{outline:none;border-color:var(--teal);}
+.chat-input-row button{width:38px;height:38px;border-radius:50%;background:var(--teal);color:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+
+/* ============ TOAST ============ */
+.toast{position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--blue-dark);color:#fff;padding:14px 24px;border-radius:12px;font-size:.9rem;font-weight:600;box-shadow:var(--shadow-lg);z-index:400;opacity:0;pointer-events:none;transition:.3s;display:flex;align-items:center;gap:10px;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast .ic{color:#5ee6d3;font-size:1.2rem;}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-media{order:-1;max-width:380px;margin:0 auto;}
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .team-grid{grid-template-columns:repeat(2,1fr);}
+  .testi-grid{grid-template-columns:1fr;}
+  .process-grid{grid-template-columns:repeat(2,1fr);gap:32px;}
+  .quote-wrap{grid-template-columns:1fr;}
+  .quote-options{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:28px;}
+}
+@media(max-width:720px){
+  .nav-links{position:fixed;top:0;right:0;height:100vh;width:78%;max-width:300px;background:#fff;flex-direction:column;padding:90px 30px;box-shadow:-10px 0 30px rgba(0,0,0,.1);transform:translateX(100%);transition:.3s;gap:22px;}
+  .nav-links.open{transform:translateX(0);}
+  .menu-toggle{display:flex;}
+  .navbar-actions .btn-outline{display:none;}
+  .form-row{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .chat-window{width:92vw;right:4vw;height:70vh;bottom:88px;}
+}
+@media(max-width:520px){
+  .services-grid{grid-template-columns:1fr;}
+  .team-grid{grid-template-columns:1fr;}
+  .process-grid{grid-template-columns:1fr;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= PROMO BAR ================= -->
+<div class="promo-bar">🦷 Oferta de bienvenida: <span>1ª revisión + limpieza dental GRATIS</span> este mes · Plazas limitadas</div>
+
+<!-- ================= NAVBAR ================= -->
+<header class="navbar" id="navbar">
+  <div class="container navbar-inner">
+    <a href="#inicio" class="logo">Sonrisa<span class="dot">365</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#servicios">Servicios</a>
+      <a href="#presupuesto">Presupuesto</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="navbar-actions">
+      <a href="#contacto" class="btn btn-outline btn-sm">Llamar ahora</a>
+      <a href="#presupuesto" class="btn btn-primary btn-sm">Pedir cita</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div class="reveal">
+      <span class="badge">⭐ +4.9/5 en más de 800 reseñas</span>
+      <h1>Tu mejor sonrisa empieza en <span class="accent">Sonrisa365</span></h1>
+      <p class="lead">Clínica dental de nueva generación: presupuesto online al instante, chatbot 24/7 para resolver tus dudas y cita en menos de 2 minutos. Sin esperas, sin sorpresas en el precio.</p>
+      <div class="hero-actions">
+        <a href="#presupuesto" class="btn btn-primary">Calcular mi presupuesto</a>
+        <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+      </div>
+      <div class="hero-trust">
+        <span class="stars-mini">★★★★★</span>
+        <span>+15.000 pacientes satisfechos · Financiación sin intereses</span>
+      </div>
+    </div>
+    <div class="hero-media reveal" style="--delay:.15s">
+      <div class="img-box">
+        [IMAGEN: foto de paciente sonriendo / clínica moderna<br>reemplazar por foto real 800×1000px]
+      </div>
+      <div class="float-chip chip-1"><span class="ic">✅</span><div>Cita confirmada<br><small style="font-weight:500;color:#667">Hoy 17:30</small></div></div>
+      <div class="float-chip chip-2"><span class="ic">💬</span><div>Chatbot activo<br><small style="font-weight:500;color:#667">Respuesta al instante</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="stats-bar reveal">
+  <div class="container stats-grid">
+    <div><strong class="counter" data-target="15000">0</strong><span>Pacientes atendidos</span></div>
+    <div><strong class="counter" data-target="18">0</strong><span>Años de experiencia</span></div>
+    <div><strong class="counter" data-target="98">0</strong><span>% de satisfacción</span></div>
+    <div><strong class="counter" data-target="24">0</strong><span>Horas chatbot activo</span></div>
+  </div>
+</section>
+
+<!-- ================= SERVICIOS ================= -->
+<section class="section" id="servicios">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Servicios</span>
+      <h2>Todo lo que tu sonrisa necesita</h2>
+      <p>Tratamientos con tecnología de última generación y precios transparentes desde el primer momento.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🦷</div>
+        <h3>Ortodoncia Invisible</h3>
+        <p>Alineadores transparentes a medida para corregir tu sonrisa sin brackets metálicos.</p>
+        <div class="service-price">desde 1.800€ <small>/tratamiento</small></div>
+        <a href="#presupuesto" class="btn btn-outline btn-sm">Añadir al presupuesto</a>
+      </div>
+      <div class="service-card reveal" style="--delay:.05s">
+        <div class="service-icon">🦴</div>
+        <h3>Implantes Dentales</h3>
+        <p>Implantes de titanio de alta gama con planificación digital y garantía de 5 años.</p>
+        <div class="service-price">desde 890€ <small>/implante</small></div>
+        <a href="#presupuesto" class="btn btn-outline btn-sm">Añadir al presupuesto</a>
+      </div>
+      <div class="service-card reveal" style="--delay:.1s">
+        <div class="service-icon">✨</div>
+        <h3>Blanqueamiento LED</h3>
+        <p>Blanqueamiento profesional con luz LED fría, resultados visibles en una sola sesión.</p>
+        <div class="service-price">129€ <small>/sesión</small></div>
+        <a href="#presupuesto" class="btn btn-outline btn-sm">Añadir al presupuesto</a>
+      </div>
+      <div class="service-card reveal" style="--delay:.15s">
+        <div class="service-icon">😁</div>
+        <h3>Carillas de Porcelana</h3>
+        <p>Diseño de sonrisa digital y carillas ultrafinas que respetan tu esmalte natural.</p>
+        <div class="service-price">desde 320€ <small>/carilla</small></div>
+        <a href="#presupuesto" class="btn btn-outline btn-sm">Añadir al presupuesto</a>
+      </div>
+      <div class="service-card reveal" style="--delay:.2s">
+        <div class="service-icon">🧒</div>
+        <h3>Odontopediatría</h3>
+        <p>Atención especializada y amigable para los más pequeños de la casa.</p>
+        <div class="service-price">desde 45€ <small>/revisión</small></div>
+        <a href="#presupuesto" class="btn btn-outline btn-sm">Añadir al presupuesto</a>
+      </div>
+      <div class="service-card reveal" style="--delay:.25s">
+        <div class="service-icon">🩺</div>
+        <h3>Endodoncia</h3>
+        <p>Tratamiento de conducto guiado por microscopio, prácticamente indoloro.</p>
+        <div class="service-price">desde 160€ <small>/pieza</small></div>
+        <a href="#presupuesto" class="btn btn-outline btn-sm">Añadir al presupuesto</a>
+      </div>
+      <div class="service-card reveal" style="--delay:.3s">
+        <div class="service-icon">🌿</div>
+        <h3>Periodoncia</h3>
+        <p>Tratamiento y prevención de enfermedades de las encías, mínimamente invasivo.</p>
+        <div class="service-price">desde 80€ <small>/sesión</small></div>
+        <a href="#presupuesto" class="btn btn-outline btn-sm">Añadir al presupuesto</a>
+      </div>
+      <div class="service-card reveal" style="--delay:.35s">
+        <div class="service-icon">🚨</div>
+        <h3>Urgencias 24h</h3>
+        <p>Atención inmediata para dolor agudo, roturas o traumatismos dentales.</p>
+        <div class="service-price">desde 60€ <small>/visita</small></div>
+        <a href="#contacto" class="btn btn-outline btn-sm">Contactar ahora</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GENERADOR DE PRESUPUESTO ================= -->
+<section class="section quote-section" id="presupuesto">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Presupuesto instantáneo</span>
+      <h2>Calcula el precio de tu tratamiento en segundos</h2>
+      <p>Selecciona los servicios que te interesan y obtén una estimación al momento. 100% orientativo y sin compromiso.</p>
+    </div>
+    <div class="quote-wrap reveal">
+      <div class="quote-options" id="quoteOptions">
+        <label class="quote-opt"><input type="checkbox" data-name="Ortodoncia Invisible" data-price="1800"><span><span class="qname">Ortodoncia Invisible</span><span class="qprice">1.800€</span></span></label>
+        <label class="quote-opt"><input type="checkbox" data-name="Implante Dental" data-price="890"><span><span class="qname">Implante Dental</span><span class="qprice">890€</span></span></label>
+        <label class="quote-opt"><input type="checkbox" data-name="Blanqueamiento LED" data-price="129"><span><span class="qname">Blanqueamiento LED</span><span class="qprice">129€</span></span></label>
+        <label class="quote-opt"><input type="checkbox" data-name="Carilla de Porcelana" data-price="320"><span><span class="qname">Carilla de Porcelana</span><span class="qprice">320€</span></span></label>
+        <label class="quote-opt"><input type="checkbox" data-name="Revisión Infantil" data-price="45"><span><span class="qname">Revisión Infantil</span><span class="qprice">45€</span></span></label>
+        <label class="quote-opt"><input type="checkbox" data-name="Endodoncia" data-price="160"><span><span class="qname">Endodoncia</span><span class="qprice">160€</span></span></label>
+        <label class="quote-opt"><input type="checkbox" data-name="Periodoncia" data-price="80"><span><span class="qname">Periodoncia</span><span class="qprice">80€</span></span></label>
+        <label class="quote-opt"><input type="checkbox" data-name="Limpieza Dental" data-price="55"><span><span class="qname">Limpieza Dental</span><span class="qprice">55€</span></span></label>
+      </div>
+      <div class="quote-summary">
+        <h3>Tu presupuesto</h3>
+        <ul id="quoteList"><li class="empty">Selecciona uno o varios tratamientos para ver el precio.</li></ul>
+        <div class="quote-total"><span>Total estimado</span><span id="quoteTotal">0€ <small>+IVA si aplica</small></span></div>
+        <button type="button" class="btn btn-primary btn-block" id="requestQuoteBtn">Solicitar presupuesto personalizado</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESO ================= -->
+<section class="section bg-soft">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Cómo funciona</span>
+      <h2>De la reserva a tu nueva sonrisa en 4 pasos</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-card reveal"><div class="process-num">1</div><h3>Pide cita online</h3><p>Reserva en segundos sin llamadas ni esperas telefónicas.</p></div>
+      <div class="process-card reveal" style="--delay:.1s"><div class="process-num">2</div><h3>Diagnóstico</h3><p>Escáner 3D y valoración con nuestros especialistas.</p></div>
+      <div class="process-card reveal" style="--delay:.2s"><div class="process-num">3</div><h3>Tratamiento</h3><p>Ejecutamos tu plan con tecnología de precisión.</p></div>
+      <div class="process-card reveal" style="--delay:.3s"><div class="process-num">4</div><h3>Seguimiento</h3><p>Revisiones y recordatorios automáticos incluidos.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NOSOTROS ================= -->
+<section class="section" id="nosotros">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Nuestro equipo</span>
+      <h2>Especialistas en los que puedes confiar</h2>
+      <p>Un equipo multidisciplinar con formación internacional y miles de horas clínicas.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-photo">🧑‍⚕️</div>
+        <div class="team-card-body"><h3>Dra. Laura Méndez</h3><span>Directora · Ortodoncia</span></div>
+      </div>
+      <div class="team-card reveal" style="--delay:.1s">
+        <div class="team-photo">🧑‍⚕️</div>
+        <div class="team-card-body"><h3>Dr. Iván Torres</h3><span>Implantología</span></div>
+      </div>
+      <div class="team-card reveal" style="--delay:.2s">
+        <div class="team-photo">🧑‍⚕️</div>
+        <div class="team-card-body"><h3>Dra. Noa Ferrer</h3><span>Odontopediatría</span></div>
+      </div>
+      <div class="team-card reveal" style="--delay:.3s">
+        <div class="team-photo">🧑‍⚕️</div>
+        <div class="team-card-body"><h3>Dr. Bruno Casals</h3><span>Estética Dental</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIOS ================= -->
+<section class="section bg-soft" id="opiniones">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Opiniones</span>
+      <h2>Lo que dicen nuestros pacientes</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>"Pedí cita desde el móvil en dos minutos y el presupuesto online coincidió exactamente con el final. Súper transparente."</p>
+        <div class="testi-author"><div class="testi-avatar">M</div><div><strong>Marta S.</strong><span>Ortodoncia Invisible</span></div></div>
+      </div>
+      <div class="testi-card reveal" style="--delay:.1s">
+        <div class="stars">★★★★★</div>
+        <p>"El chatbot me resolvió una duda sobre precios un domingo por la noche. Al día siguiente ya tenía cita confirmada."</p>
+        <div class="testi-author"><div class="testi-avatar">J</div><div><strong>Javier R.</strong><span>Implantes Dentales</span></div>
+      </div>
+      <div class="testi-card reveal" style="--delay:.2s">
+        <div class="stars">★★★★★</div>
+        <p>"Mi hija ahora pide ir al dentista. Trato increíble con los niños y clínica impecable."</p>
+        <div class="testi-author"><div class="testi-avatar">B</div><div><strong>Beatriz N.</strong><span>Odontopediatría</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Resolvemos tus dudas</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-q">¿El presupuesto online es definitivo?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Es una estimación orientativa. El presupuesto definitivo se confirma tras la valoración clínica gratuita.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Ofrecéis financiación?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Sí, financiamos tratamientos desde 300€ hasta en 24 meses sin intereses, sujeto a aprobación.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Atendéis urgencias el mismo día?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Sí, disponemos de hueco de urgencia el mismo día para dolor agudo, roturas o traumatismos.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Cómo funciona el chatbot?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Responde automáticamente preguntas frecuentes sobre precios, citas y tratamientos, y te deriva a una reserva.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Puedo cancelar o cambiar mi cita?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Sí, contáctanos con al menos 24h de antelación por teléfono, email o chatbot.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Trabajáis con seguros dentales?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Colaboramos con las principales aseguradoras dentales. Consúltanos tu compañía al reservar.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACTO ================= -->
+<section class="section bg-soft" id="contacto">
+  <div class="container contact-grid">
+    <div class="contact-info reveal">
+      <span class="eyebrow">Contacto</span>
+      <h2>Hablemos de tu sonrisa</h2>
+      <p>Escríbenos, llámanos o pásate por la clínica. Respuesta garantizada en menos de 24h.</p>
+      <ul class="contact-list">
+        <li><span class="ic">📍</span>Calle Gran Vía 123, 28013 Madrid</li>
+        <li><span class="ic">📞</span>+34 900 111 222</li>
+        <li><span class="ic">✉️</span>albertgonzalez985@gmail.com</li>
+        <li><span class="ic">🕒</span>Lun–Vie 09:00–20:00 · Sáb 10:00–14:00</li>
+      </ul>
+      <div class="fake-map">
+        <!-- MAPA FICTICIO: sustituir por iframe de Google Maps real -->
+        <svg viewBox="0 0 400 200" width="100%" height="180"><rect width="400" height="200" fill="#e8f1ff"/><path d="M0 50H400M0 100H400M0 150H400M100 0V200M200 0V200M300 0V200" stroke="#c7dcfb" stroke-width="2"/><circle cx="200" cy="100" r="10" fill="#0b2545"/><circle cx="200" cy="100" r="18" fill="#1d6fe0" opacity=".3"/></svg>
+      </div>
+    </div>
+    <form class="contact-form reveal" style="--delay:.1s" id="contactForm" novalidate>
+      <h3 style="margin-bottom:16px;color:var(--blue-dark);">Pide tu cita o información</h3>
+      <div class="form-row">
+        <div class="form-group"><label for="cfName">Nombre *</label><input type="text" id="cfName" required minlength="2"><span class="error-msg" data-for="cfName"></span></div>
+        <div class="form-group"><label for="cfPhone">Teléfono *</label><input type="tel" id="cfPhone" required><span class="error-msg" data-for="cfPhone"></span></div>
+      </div>
+      <div class="form-group"><label for="cfEmail">Email *</label><input type="email" id="cfEmail" required><span class="error-msg" data-for="cfEmail"></span></div>
+      <div class="form-group"><label for="cfTreatment">Tratamiento de interés</label>
+        <select id="cfTreatment">
+          <option>Ortodoncia Invisible</option><option>Implantes Dentales</option><option>Blanqueamiento LED</option>
+          <option>Carillas de Porcelana</option><option>Odontopediatría</option><option>Endodoncia</option>
+          <option>Periodoncia</option><option>Otro / No lo sé todavía</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="cfMsg">Mensaje</label><textarea id="cfMsg" rows="3" placeholder="Cuéntanos brevemente qué necesitas..."></textarea></div>
+      <button type="submit" class="btn btn-primary btn-block">Enviar solicitud</button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= CTA FINAL ================= -->
+<section class="section">
+  <div class="container">
+    <div class="cta-final reveal">
+      <h2>¿Listo para tu mejor sonrisa?</h2>
+      <p>Reserva ahora y consigue tu primera revisión + limpieza dental gratis.</p>
+      <a href="#presupuesto" class="btn btn-white">Calcular presupuesto gratis</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="#inicio" class="logo">Sonrisa<span class="dot" style="color:#5ee6d3;">365</span></a>
+      <p>Clínica dental ficticia de ejemplo. Contenido y datos 100% inventados con fines demostrativos.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <a href="#servicios">Servicios</a><a href="#presupuesto">Presupuesto</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Aviso legal</a><a href="#">Privacidad</a><a href="#">Cookies</a>
+    </div>
+    <div class="footer-col">
+      <h4>Síguenos</h4>
+      <a href="#">Instagram</a><a href="#">Facebook</a><a href="#">TikTok</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">© 2026 Sonrisa365 — Empresa ficticia de ejemplo, plantilla web con fines demostrativos.</div>
+</footer>
+
+<!-- ================= FLOATING ACTION BUTTONS ================= -->
+<div class="fab-stack">
+  <button class="fab fab-top" id="fabTop" aria-label="Volver arriba">↑</button>
+  <a href="#" class="fab fab-whatsapp" id="fabWhatsapp" aria-label="WhatsApp">🟢</a>
+  <button class="fab fab-chat" id="fabChat" aria-label="Abrir chatbot">💬</button>
+</div>
+
+<!-- ================= CHATBOT WINDOW ================= -->
+<div class="chat-window" id="chatWindow">
+  <div class="chat-head">
+    <div class="av">🤖</div>
+    <div><strong>Nova · Asistente virtual</strong><span><i></i>En línea ahora</span></div>
+    <button class="chat-close" id="chatClose" aria-label="Cerrar chat">&times;</button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="msg msg-bot">¡Hola! 👋 Soy Nova, la asistente de Sonrisa365. Pregúntame sobre precios, citas, urgencias o tratamientos.</div>
+  </div>
+  <div class="chat-suggestions">
+    <button type="button" class="chip-sm" data-msg="¿Cuánto cuesta la ortodoncia?">Precio ortodoncia</button>
+    <button type="button" class="chip-sm" data-msg="Tengo una urgencia">Urgencia</button>
+    <button type="button" class="chip-sm" data-msg="¿Hay financiación?">Financiación</button>
+  </div>
+  <form class="chat-input-row" id="chatForm">
+    <label for="chatInput" class="sr-only">Escribe tu mensaje</label>
+    <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." autocomplete="off" required>
+    <button type="submit" aria-label="Enviar">➤</button>
+  </form>
+</div>
+
+<!-- ================= TOAST ================= -->
+<div class="toast" id="toast"><span class="ic">✔</span><span id="toastMsg">Listo</span></div>
+
+<script>
+/* ============================================================
+   NAVBAR: sticky shadow + mobile menu
+   ============================================================ */
+const navbar = document.getElementById('navbar');
+const navLinks = document.getElementById('navLinks');
+const menuToggle = document.getElementById('menuToggle');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 10);
+  document.getElementById('fabTop').classList.toggle('show', window.scrollY > 500);
+});
+
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  const expanded = navLinks.classList.contains('open');
+  menuToggle.setAttribute('aria-expanded', expanded);
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+/* ============================================================
+   ANIMATED COUNTERS
+   ============================================================ */
+const counters = document.querySelectorAll('.counter');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounter(entry.target);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => counterObserver.observe(c));
+
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const duration = 1400;
+  const start = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * target).toLocaleString('es-ES');
+    if (progress < 1) requestAnimationFrame(tick);
+    else el.textContent = target.toLocaleString('es-ES');
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ============================================================
+   FAQ ACORDEÓN
+   ============================================================ */
+document.querySelectorAll('.faq-item').forEach(item => {
+  const btn = item.querySelector('.faq-q');
+  const answer = item.querySelector('.faq-a');
+  btn.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(o => {
+      o.classList.remove('open');
+      o.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  });
+});
+
+/* ============================================================
+   GENERADOR DE PRESUPUESTO
+   ============================================================ */
+const quoteOptions = document.getElementById('quoteOptions');
+const quoteList = document.getElementById('quoteList');
+const quoteTotal = document.getElementById('quoteTotal');
+
+function updateQuote() {
+  const checked = quoteOptions.querySelectorAll('input:checked');
+  if (checked.length === 0) {
+    quoteList.innerHTML = '<li class="empty">Selecciona uno o varios tratamientos para ver el precio.</li>';
+    quoteTotal.innerHTML = '0€ <small>+IVA si aplica</small>';
+    return;
+  }
+  let total = 0;
+  quoteList.innerHTML = '';
+  checked.forEach(input => {
+    const price = parseInt(input.dataset.price, 10);
+    total += price;
+    const li = document.createElement('li');
+    li.innerHTML = `<span>${input.dataset.name}</span><span>${price.toLocaleString('es-ES')}€</span>`;
+    quoteList.appendChild(li);
+  });
+  quoteTotal.innerHTML = `${total.toLocaleString('es-ES')}€ <small>+IVA si aplica</small>`;
+}
+quoteOptions.addEventListener('change', updateQuote);
+
+document.getElementById('requestQuoteBtn').addEventListener('click', () => {
+  const checked = quoteOptions.querySelectorAll('input:checked');
+  if (checked.length === 0) {
+    showToast('Selecciona al menos un tratamiento antes de solicitar el presupuesto.');
+    return;
+  }
+  document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+  const treatmentSelect = document.getElementById('cfTreatment');
+  const firstName = checked[0].dataset.name;
+  for (const opt of treatmentSelect.options) {
+    if (opt.text.toLowerCase().includes(firstName.toLowerCase().split(' ')[0])) {
+      treatmentSelect.value = opt.text;
+      break;
+    }
+  }
+  showToast('Presupuesto calculado. Completa el formulario para confirmarlo.');
+});
+
+/* ============================================================
+   VALIDACIÓN DE FORMULARIO DE CONTACTO
+   ============================================================ */
+const contactForm = document.getElementById('contactForm');
+contactForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let valid = true;
+  const fields = [
+    { id: 'cfName', check: v => v.trim().length >= 2, msg: 'Introduce tu nombre completo.' },
+    { id: 'cfPhone', check: v => /^[0-9+\s]{7,15}$/.test(v.trim()), msg: 'Introduce un teléfono válido.' },
+    { id: 'cfEmail', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()), msg: 'Introduce un email válido.' },
+  ];
+  fields.forEach(f => {
+    const el = document.getElementById(f.id);
+    const errorEl = document.querySelector(`.error-msg[data-for="${f.id}"]`);
+    const group = el.closest('.form-group');
+    if (!f.check(el.value)) {
+      valid = false;
+      group.classList.add('field-error');
+      errorEl.textContent = f.msg;
+    } else {
+      group.classList.remove('field-error');
+      errorEl.textContent = '';
+    }
+  });
+  if (valid) {
+    showToast('¡Solicitud enviada! Te contactaremos en menos de 24h.');
+    contactForm.reset();
+  }
+});
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+let toastTimer;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3800);
+}
+
+/* ============================================================
+   VOLVER ARRIBA
+   ============================================================ */
+document.getElementById('fabTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ============================================================
+   WHATSAPP FICTICIO
+   ============================================================ */
+document.getElementById('fabWhatsapp').addEventListener('click', (e) => {
+  e.preventDefault();
+  showToast('Simulación: aquí se abriría WhatsApp con el número de la clínica.');
+});
+
+/* ============================================================
+   CHATBOT
+   ============================================================ */
+const chatWindow = document.getElementById('chatWindow');
+const chatBody = document.getElementById('chatBody');
+const chatForm = document.getElementById('chatForm');
+const chatInput = document.getElementById('chatInput');
+
+document.getElementById('fabChat').addEventListener('click', () => {
+  chatWindow.classList.add('open');
+  chatInput.focus();
+});
+document.getElementById('chatClose').addEventListener('click', () => chatWindow.classList.remove('open'));
+
+document.querySelectorAll('.chip-sm').forEach(chip => {
+  chip.addEventListener('click', () => sendUserMessage(chip.dataset.msg));
+});
+
+chatForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const val = chatInput.value.trim();
+  if (!val) return;
+  sendUserMessage(val);
+  chatInput.value = '';
+});
+
+function sendUserMessage(text) {
+  appendMessage(text, 'user');
+  showTyping();
+  setTimeout(() => {
+    removeTyping();
+    appendMessage(getBotReply(text), 'bot');
+  }, 900 + Math.random() * 500);
+}
+
+function appendMessage(text, who) {
+  const div = document.createElement('div');
+  div.className = 'msg msg-' + who;
+  div.textContent = text;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function showTyping() {
+  const div = document.createElement('div');
+  div.className = 'typing';
+  div.id = 'typingIndicator';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+function removeTyping() {
+  const t = document.getElementById('typingIndicator');
+  if (t) t.remove();
+}
+
+/* Normaliza texto: minúsculas y sin tildes, para que "cuánto" y "cuanto" coincidan igual */
+function normalize(str) {
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .trim();
+}
+
+/*
+ * Motor de intenciones por palabras clave (con límites de palabra \b para evitar
+ * falsos positivos, p.ej. que "hora" no dispare por "ahora").
+ * Cada intención sólo responde si el mensaje realmente contiene alguna de sus
+ * palabras clave. Si ninguna intención coincide, el bot NO inventa una
+ * respuesta: admite que no lo ha entendido y pide reformular o redirige a un
+ * humano.
+ */
+const INTENTS = [
+  {
+    name: 'saludo',
+    keywords: ['hola', 'buenas', 'buenos dias', 'buenas tardes', 'buenas noches', 'hey'],
+    reply: '¡Hola! 😊 Soy Nova. Puedo ayudarte con precios, citas, urgencias, ortodoncia, carillas, implantes, financiación u horarios. ¿En qué te ayudo?'
+  },
+  {
+    name: 'gracias',
+    keywords: ['gracias', 'genial gracias', 'perfecto gracias', 'muchas gracias'],
+    reply: '¡De nada! 😊 Estoy aquí 24/7 para lo que necesites.'
+  },
+  {
+    name: 'urgencia',
+    keywords: ['urgen', 'dolor', 'me duele', 'sangra', 'roto', 'rota', 'traumatismo', 'hinchad'],
+    reply: 'Lamento escuchar eso. Atendemos urgencias el mismo día. Llama al +34 900 111 222 o completa el formulario de contacto indicando "urgencia".'
+  },
+  {
+    name: 'precio',
+    keywords: ['precio', 'cuesta', 'cuanto', 'coste', 'vale', 'tarifa', 'importe'],
+    reply: 'Los precios varían según el tratamiento: ortodoncia desde 1.800€, implantes desde 890€, blanqueamiento 129€, carillas desde 320€. Usa el generador de presupuesto para un cálculo exacto 👉 sección "Presupuesto".'
+  },
+  {
+    name: 'ortodoncia',
+    keywords: ['ortodoncia', 'brackets', 'alineadores', 'invisalign', 'dientes torcidos'],
+    reply: 'Nuestra ortodoncia invisible cuesta desde 1.800€ y suele durar entre 6 y 18 meses según el caso. ¿Quieres que te reserve una valoración gratuita?'
+  },
+  {
+    name: 'carillas',
+    keywords: ['carilla', 'carillas', 'diseno de sonrisa', 'dsd'],
+    reply: 'Las carillas de porcelana parten de 320€ por pieza, con diseño de sonrisa digital incluido antes de empezar.'
+  },
+  {
+    name: 'implantes',
+    keywords: ['implant'],
+    reply: 'Los implantes dentales cuestan desde 890€ e incluyen 5 años de garantía. La cirugía se planifica con escáner 3D.'
+  },
+  {
+    name: 'blanqueamiento',
+    keywords: ['blanqueamiento', 'blanquear', 'dientes amarillos', 'blancos'],
+    reply: 'El blanqueamiento LED cuesta 129€ por sesión y los resultados son visibles al terminar la misma cita.'
+  },
+  {
+    name: 'endodoncia',
+    keywords: ['endodoncia', 'conducto', 'nervio'],
+    reply: 'La endodoncia (tratamiento de conducto) cuesta desde 160€ por pieza y se realiza guiada por microscopio, prácticamente sin dolor.'
+  },
+  {
+    name: 'periodoncia',
+    keywords: ['periodoncia', 'encias', 'encia'],
+    reply: 'El tratamiento de periodoncia (cuidado de encías) cuesta desde 80€ por sesión.'
+  },
+  {
+    name: 'ninos',
+    keywords: ['nino', 'ninos', 'infantil', 'odontopediatr', 'hijo', 'hija'],
+    reply: 'Nuestras revisiones de odontopediatría cuestan desde 45€ y están pensadas para que los más pequeños pierdan el miedo al dentista.'
+  },
+  {
+    name: 'financiacion',
+    keywords: ['financia', 'financiacion', 'cuotas', 'pagar a plazos', 'aplazar'],
+    reply: 'Sí, financiamos tratamientos desde 300€ hasta en 24 meses sin intereses, sujeto a aprobación. ¿Te gustaría más info?'
+  },
+  {
+    name: 'seguro',
+    keywords: ['seguro', 'aseguradora', 'mutua', 'poliza'],
+    reply: 'Colaboramos con las principales aseguradoras dentales. Cuéntanos tu compañía en el formulario de contacto y te confirmamos las condiciones.'
+  },
+  {
+    name: 'cita',
+    keywords: ['cita', 'reserva', 'reservar', 'pedir hora', 'agendar'],
+    reply: 'Puedes reservar tu cita directamente desde el generador de presupuesto o el formulario de contacto, sin llamadas. ¿Quieres que te lleve allí?'
+  },
+  {
+    name: 'horario',
+    keywords: ['horario', 'abren', 'cierran', 'a que hora', 'dias abierto'],
+    reply: 'Abrimos de lunes a viernes de 09:00 a 20:00 y sábados de 10:00 a 14:00.'
+  },
+  {
+    name: 'ubicacion',
+    keywords: ['direccion', 'ubicacion', 'donde estais', 'donde esta', 'donde os encontr', 'llegar', 'mapa'],
+    reply: 'Estamos en Calle Gran Vía 123, 28013 Madrid. Tienes el mapa en la sección de contacto. 📍'
+  },
+  {
+    name: 'email',
+    keywords: ['correo', 'email', 'e-mail', 'gmail', 'arroba', 'escribir un mensaje'],
+    reply: 'Puedes escribirnos a albertgonzalez985@gmail.com y te responderemos en menos de 24h. ✉️'
+  },
+  {
+    name: 'telefono',
+    keywords: ['telefono', 'numero de telefono', 'movil', 'llamar', 'llamada'],
+    reply: 'Puedes llamarnos al +34 900 111 222, de lunes a viernes de 09:00 a 20:00 y sábados de 10:00 a 14:00. 📞'
+  }
+];
+
+function getBotReply(rawMsg) {
+  const m = normalize(rawMsg);
+  for (const intent of INTENTS) {
+    const matched = intent.keywords.some(kw => {
+      // \b no funciona bien con frases de varias palabras, así que usamos
+      // includes() para frases y \b sólo para palabras sueltas cortas.
+      if (kw.includes(' ')) return m.includes(kw);
+      return new RegExp('\\b' + kw + '\\w*\\b').test(m);
+    });
+    if (matched) return intent.reply;
+  }
+  // Ninguna intención ha coincidido: no inventamos una respuesta.
+  return 'No he entendido bien tu pregunta 🤔 Puedo ayudarte con: precio, cita, urgencia, ortodoncia, carillas, implantes, financiación, correo, teléfono u ubicación. ¿Puedes reformularla, o prefieres hablar con nuestro equipo desde el formulario de contacto?';
+}
+
+/* ============================================================
+   COOKIES (SIMULADO, sin librerías)
+   ============================================================ */
+setTimeout(() => {
+  if (!sessionStorage.getItem('cookiesHandled')) {
+    showToast('Usamos cookies simuladas para mejorar tu experiencia.');
+    sessionStorage.setItem('cookiesHandled', '1');
+  }
+}, 1500);
+</script>
+</body>
+</html>

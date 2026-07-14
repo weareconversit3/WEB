@@ -1395,10 +1395,9 @@ main{ padding-top: 71px; }
 .tile-block.block-hero svg{ transition: transform .35s var(--ease); }
 .project-tile:hover .tile-block.block-hero svg{ transform: scale(1.08); }
 
-/* Miniatura "viva": la web real en miniatura, paneando sola dentro
-   de la tarjeta de proyecto (por ahora, la de Clínicas). Mismo alto
-   que el mockup ilustrado de las demás tarjetas para no descuadrar
-   la fila de la cuadrícula. */
+/* Portada con foto real del proyecto (Restaurantes / Clínicas).
+   Mismo alto que el mockup ilustrado de las demás tarjetas para no
+   descuadrar la fila de la cuadrícula. */
 .tile-live-preview{
   position:relative;
   height:154px;
@@ -1406,25 +1405,18 @@ main{ padding-top: 71px; }
   border-radius:6px;
   background: var(--white);
 }
-.tile-live-preview iframe{
-  position:absolute; top:0; left:0;
-  width:1150px; height:900px;
-  border:0;
-  transform-origin: top left;
-  pointer-events:none;
-  animation: tile-preview-pan 20s ease-in-out infinite;
+.tile-live-preview img{
+  display:block;
+  width:100%; height:100%;
+  object-fit:cover;
+  transition: transform .35s var(--ease);
 }
-@keyframes tile-preview-pan{
-  0%, 6%{ transform: scale(.2) translateY(0); }
-  50%{ transform: scale(.2) translateY(-140px); }
-  94%, 100%{ transform: scale(.2) translateY(0); }
-}
+.project-tile:hover .tile-live-preview img{ transform: scale(1.05); }
 
 @media (prefers-reduced-motion: reduce){
   .price-badge{ animation:none; }
   .faq-item[open] .faq-answer{ animation:none; }
   .hero-visual{ transition:none; }
-  .tile-live-preview iframe{ animation:none; transform: scale(.2); }
 }
 
 </style>
@@ -1727,7 +1719,7 @@ main{ padding-top: 71px; }
           <div class="tile-browser" style="--tile-color:var(--teal)">
             <div class="tile-dots"><span></span><span></span><span></span></div>
             <div class="tile-live-preview">
-              <iframe src="cendra-restaurant-es_3.html" title="Vista previa en miniatura de la web de restaurantes" tabindex="-1" aria-hidden="true" loading="lazy" scrolling="no"></iframe>
+              <img src="cover-restaurantes.jpg" alt="" loading="lazy">
             </div>
           </div>
           <h3 data-i18n="projects.tile1.title">Restaurantes y hostelería</h3>
@@ -1738,7 +1730,7 @@ main{ padding-top: 71px; }
           <div class="tile-browser" style="--tile-color:var(--orange)">
             <div class="tile-dots"><span></span><span></span><span></span></div>
             <div class="tile-live-preview">
-              <iframe src="portfolio-clinica.html" title="Vista previa en miniatura de la web de clínicas" tabindex="-1" aria-hidden="true" loading="lazy" scrolling="no"></iframe>
+              <img src="cover-clinicas.jpg" alt="" loading="lazy">
             </div>
           </div>
           <h3 data-i18n="projects.tile2.title">Clínicas y consultas</h3>
